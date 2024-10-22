@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tiendita/screns/tuInventario_Screnn.dart';
+import 'package:tiendita/screns/tuListaSurtido_Screnn.dart';
+import 'package:tiendita/screns/tuPromociones__Screnn.dart';
 import 'package:tiendita/widgets/AppBar_Personalizado/APPBar.dart';
 import 'package:tiendita/widgets/TuInventario/Tu_Inventario.dart';
 import 'package:tiendita/widgets/TuListaSurtido/Tu_ListaSurtido.dart';
@@ -57,8 +60,18 @@ class _home_screenState extends State<home_screen> {
                       ),
                     ),
                   ),
-                  // Widget de tus productos
-                  const Expanded(child: TuInventario()), // Mueve esto fuera del Container
+                  // Widget de tus productos reguistrados
+                  Expanded(
+                      child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const TuInventario_Screen()),
+                        );
+                    },
+                    child: const TuInventario()
+                  ))// Mueve esto fuera del Container
                 ],
               ),
             ),
@@ -171,6 +184,11 @@ class _home_screenState extends State<home_screen> {
                             onPressed: () {
                               // Acción cuando se presiona el botón
                               //Mandar ala Screen Tus Promociones
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => TuPromociones_Screen()),
+                              );
                             },
                             child: Text('Ver mas'),
                             style: OutlinedButton.styleFrom(
@@ -192,7 +210,16 @@ class _home_screenState extends State<home_screen> {
                       ),
                     ),
                   ),
-                  const TuPromociones()
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TuPromociones_Screen()),
+                      ); 
+                    },
+                    child: const TuPromociones(),
+                  )
                 ],
               ),
             ),
@@ -230,6 +257,12 @@ class _home_screenState extends State<home_screen> {
                             onPressed: () {
                               // Acción cuando se presiona el botón
                               //Mandar ala Screen Tus Promociones
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        TuListaSurtido_Screnn()),
+                              );
                             },
                             child: Text('Ver mas'),
                             style: OutlinedButton.styleFrom(
@@ -252,7 +285,16 @@ class _home_screenState extends State<home_screen> {
                     ),
                   ),
                   //Contenedor expandido
-                  const TuListaSurtido()
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TuListaSurtido_Screnn()),
+                      );
+                    },
+                    child: const TuListaSurtido(),
+                  )
                 ],
               ),
             )

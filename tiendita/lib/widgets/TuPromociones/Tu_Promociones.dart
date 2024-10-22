@@ -25,7 +25,9 @@ class _TuPromocionesState extends State<TuPromociones> {
             //TODO Hacer un ListViewBuilder donde se manden llamar solo las primeras
             //TODO 3 Promociones
             promociones(),
-            promociones()   //promociones()
+            promociones(), 
+            promociones(), 
+            promociones(),  //promociones()
           ],
         ),
       ),

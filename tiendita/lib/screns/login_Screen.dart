@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:tiendita/screns/home_Screnn.dart';
 
 class loginScrenn extends StatelessWidget {
   const loginScrenn({super.key});
@@ -68,7 +69,7 @@ class loginScrenn extends StatelessWidget {
                         )),
                   ),
 
-                  //TODO hacer que se vea la contraseña cambiar al icono                 
+                  //TODO hacer que se vea la contraseña cambiar al icono
                   //imput dos
                   const TextField(
                     decoration: InputDecoration(
@@ -113,6 +114,11 @@ class loginScrenn extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
                         // aquí van los cambios al hacer clic
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => home_screen()),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
