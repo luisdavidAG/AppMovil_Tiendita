@@ -3,6 +3,7 @@ import 'package:tiendita/screns/home_Screnn.dart';
 import 'package:tiendita/screns/login_Screen.dart';
 import 'package:tiendita/screns/tuInventario_Screnn.dart';
 import 'package:tiendita/screns/tuListaSurtido_Screnn.dart';
+import 'package:tiendita/screns/tuProductos_Screen.dart';
 import 'package:tiendita/screns/tuPromociones__Screnn.dart';
 import 'package:tiendita/widgets/TuListaSurtido/Tu_ListaSurtido.dart';
 
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const loginScrenn(),
+      home: const TuProductos_Screnn(),
     );
   }
 }

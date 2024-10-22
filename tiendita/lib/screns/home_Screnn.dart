@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tiendita/screns/tuInventario_Screnn.dart';
 import 'package:tiendita/screns/tuListaSurtido_Screnn.dart';
+import 'package:tiendita/screns/tuProductos_Screen.dart';
 import 'package:tiendita/screns/tuPromociones__Screnn.dart';
 import 'package:tiendita/widgets/AppBar_Personalizado/APPBar.dart';
 import 'package:tiendita/widgets/TuInventario/Tu_Inventario.dart';
@@ -110,15 +111,30 @@ class _home_screenState extends State<home_screen> {
                         width: pantalla.width*.50,
                         // decoration: BoxDecoration(color: Colors.black87),
                         //carta_1Productos
-                        child: ButtonTheme(child: TusProductos())
-                        
-                      ),
+                        child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const TuProductos_Screnn()),
+                              );
+                            },
+                            child: const TusProductos(),
+                          )),
                       Container(
                         height: pantalla.height*.25,
                         width: pantalla.width*.50,
                         decoration: BoxDecoration(color: Color.fromARGB(149, 16, 212, 32)),
-      
-                        child: ButtonTheme(child: EditarProductos()),
+                        child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const TuProductos_Screnn()),
+                              );
+                            },
+                            child: const TusProductos(),
+                          )
                       )
                     ],
                   ),
@@ -134,15 +150,31 @@ class _home_screenState extends State<home_screen> {
                           width: pantalla.width*.50,
                           // decoration: BoxDecoration(color: Colors.black87),
                           //carta_1Productos
-                          child: ButtonTheme(child: ConsultarProductos())
-                          
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const TuProductos_Screnn()),
+                              );
+                            },
+                            child: const TusProductos(),
+                          )
                         ),
                         Container(
                           height: pantalla.height*.25,
                           width: pantalla.width*.50,
                           decoration: BoxDecoration(color: Color.fromARGB(149, 16, 212, 32)),
-                        
-                          child: ButtonTheme(child: EliminarProductos()),
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const TuProductos_Screnn()),
+                              );
+                            },
+                            child: const TusProductos(),
+                          )
                         )
                       ],
                     ),
