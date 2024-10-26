@@ -224,8 +224,7 @@ class _home_screenState extends State<home_screen> {
                             },
                             child: Text('Ver mas'),
                             style: OutlinedButton.styleFrom(
-                              primary: const Color.fromARGB(255, 0, 0, 0), // Color del texto
-                              side: BorderSide.none, // Borde
+                              foregroundColor: const Color.fromARGB(255, 0, 0, 0), side: BorderSide.none, // Borde
                               //pading interno
                               padding: EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 10),
@@ -298,8 +297,7 @@ class _home_screenState extends State<home_screen> {
                             },
                             child: Text('Ver mas'),
                             style: OutlinedButton.styleFrom(
-                              primary: const Color.fromARGB(255, 0, 0, 0), // Color del texto
-                              side: BorderSide.none, // Borde
+                              foregroundColor: const Color.fromARGB(255, 0, 0, 0), side: BorderSide.none, // Borde
                               //pading interno
                               padding: EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 10),

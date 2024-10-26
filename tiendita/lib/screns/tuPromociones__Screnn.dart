@@ -72,9 +72,8 @@ class _TuPromociones_ScreenState extends State<TuPromociones_Screen> {
                                 // Mandar a la pantalla Tus Promociones
                               },
                               style: OutlinedButton.styleFrom(
-                                primary: const Color.fromARGB(
-                                    255, 0, 0, 0), // Color del texto
-                                side: BorderSide.none, // Sin borde
+                                foregroundColor: const Color.fromARGB(
+                                    255, 0, 0, 0), side: BorderSide.none, // Sin borde
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 20,
                                   vertical: 10,
