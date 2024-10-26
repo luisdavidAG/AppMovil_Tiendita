@@ -6,10 +6,10 @@ import 'package:tiendita/screns/tuPromociones__Screnn.dart';
 import 'package:tiendita/widgets/AppBar_Personalizado/APPBar.dart';
 import 'package:tiendita/widgets/TuInventario/Tu_Inventario.dart';
 import 'package:tiendita/widgets/TuListaSurtido/Tu_ListaSurtido.dart';
-import 'package:tiendita/widgets/TuProductos/Agregar_Producto.dart';
-import 'package:tiendita/widgets/TuProductos/Consultar_Productos.dart';
-import 'package:tiendita/widgets/TuProductos/Editar_Productos.dart';
-import 'package:tiendita/widgets/TuProductos/Eliminar_Productos.dart';
+import 'package:tiendita/widgets/TuProductos/CardAgrProd.dart';
+import 'package:tiendita/widgets/TuProductos/CardConsProd.dart';
+import 'package:tiendita/widgets/TuProductos/CardEditProd.dart';
+import 'package:tiendita/widgets/TuProductos/CardElimProd.dart';
 import 'package:tiendita/widgets/TuPromociones/Tu_Promociones.dart';
 //import 'package:tiendita/widgets/TuProductos/Tus_Productos.dart';
 
