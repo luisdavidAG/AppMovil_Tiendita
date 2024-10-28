@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:tiendita/screns/tuInventario_Screnn.dart'; // Asegúrate de que la ruta sea correcta
+import 'package:tiendita/widgets/Personalizados_Screnns/FeedBack_Inventario.dart';
 import 'package:tiendita/widgets/Personalizados_Screnns/FeedBack_Productos.dart';
+import 'package:tiendita/widgets/TuProductos/Form_AgrProd.dart';
+import 'package:tiendita/widgets/TuProductos/Form_EditProd.dart';
+import 'package:tiendita/widgets/TuProductos/Form_ElimProd.dart';
 
 class TuProductos_Screnn extends StatefulWidget {
   const TuProductos_Screnn({super.key});
@@ -13,13 +18,29 @@ class _TuProductos_ScrennState extends State<TuProductos_Screnn> {
   final double padings_H = 30;
   final double padings_V = 25;
 
-  String? _selectedFruit;
   String? _selectedCrud;
-  final List<Map<String,dynamic>> _fruits = [
-    {'name': 'Agregar Productos', 'icon': Icons.check_sharp,'color':Colors.white},
-    {'name': 'Eliminar Productos', 'icon': Icons.close_rounded,'color':Colors.white},
-    {'name' : 'Editar Productos', 'icon': Icons.edit_rounded,'color':Colors.white},
-    {'name' : 'Ver Invetario', 'icon': Icons.arrow_forward_rounded,'color':Colors.white}
+
+  final List<Map<String, dynamic>> _crud = [
+    {
+      'name': 'Agregar Productos',
+      'icon': Icons.check_sharp,
+      'color': Colors.white
+    },
+    {
+      'name': 'Eliminar Productos',
+      'icon': Icons.close_rounded,
+      'color': Colors.white
+    },
+    {
+      'name': 'Editar Productos',
+      'icon': Icons.edit_rounded,
+      'color': Colors.white
+    },
+    {
+      'name': 'Ver Inventario',
+      'icon': Icons.arrow_forward_rounded,
+      'color': Colors.white
+    }
   ];
 
   @override
@@ -53,8 +74,7 @@ class _TuProductos_ScrennState extends State<TuProductos_Screnn> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      //Si pusiera otra Seccion" Tendri que agregar el otro if con lo qu
-                      // se agregaria o la seccion
+                      //Si pusiera otra Seccion" Tendri que agregar el otro if con lo que se agregaria o la seccion
                       // Este es el feed back
                       if (index == 0) const FBProductos(),
                       // Título de la sección 'Tus Productos'
@@ -80,38 +100,36 @@ class _TuProductos_ScrennState extends State<TuProductos_Screnn> {
                           ),
                         ),
                       // Aquí iría el CRUD Combo box y los widgets adicionales
-                      //TODO hacer que funcione el combo box
-                      //TODO Hacer que cambie el widget segun el que selecciona
                       Container(
-                          padding: const EdgeInsets.all(8.0),
-                          decoration: BoxDecoration(
-                              color: Colors.red,
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(20)),
-                          child: _dropDown(
-                            underline: Container( decoration: BoxDecoration(borderRadius: BorderRadius.circular(80.0)),),
-                            style: const TextStyle(color: Colors.white),
-                            dropdownColor: Colors.red,
-                            iconEnabledColor: Colors.white,
-                            hintStyle: const TextStyle(color: Colors.white),
-                          )),
-
-                      SizedBox(height: 20),
-
-                      //TODO wiget para cada uno de los crud para evitar hacer carta para cada uno
-                      //Con esto arreglaria lo de poner el Widget que necesito segun el mismisimo  combobox
+                        padding: const EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: _dropDown(
+                          underline: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(80.0),
+                            ),
+                          ),
+                          style: const TextStyle(color: Colors.white),
+                          dropdownColor: Colors.red,
+                          iconEnabledColor: Colors.white,
+                          hintStyle: const TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      //wiget para cada uno de los crud para evitar hacer carta para cada uno
+                      //Con esto arreglaria lo de poner el Widget que necesito segun el mismisimo combobox
                       //HAcer una lista en la parte de arriba
                       //de cada uno de los widgets personalizados para hacer el crud
-                      if (index == 0)
-                        Container(), //aqui se sustituyo por el wiget
-                      Container(
-                        height: pantalla.height * .80,
-                        width: pantalla.width,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: const Color.fromARGB(255, 167, 133, 133),
-                        ),
-                      ),
+                      if (_selectedCrud == 'Agregar Productos')
+                        const FormAgrprod(),
+                      if (_selectedCrud == 'Eliminar Productos')
+                        const FormElimprod(),
+                      if (_selectedCrud == 'Editar Productos')
+                        const FormEditprod(),
                       SizedBox(height: 20),
                       Container(
                         height: pantalla.height * .40,
@@ -130,9 +148,7 @@ class _TuProductos_ScrennState extends State<TuProductos_Screnn> {
                           color: const Color.fromARGB(255, 167, 133, 133),
                         ),
                       ),
-                      SizedBox(
-                        height: 25,
-                      )
+                      SizedBox(height: 25),
                     ],
                   ),
                 ),
@@ -156,34 +172,36 @@ class _TuProductos_ScrennState extends State<TuProductos_Screnn> {
     Color? iconEnabledColor,
   }) =>
       DropdownButton<String>(
-          borderRadius: BorderRadius.circular(20),
-          value: _selectedFruit,
-          underline: underline,
-          icon: icon,
-          dropdownColor: dropdownColor,
-          style: style,
-          iconEnabledColor: iconEnabledColor,
-          onChanged: (String? newValue) {
-            setState(() {
-              _selectedFruit = newValue;
-              _selectedCrud = newValue;
-              //tambien que cambie el contenedor cando se cambie xd
-            });
-          },
-          hint: Text("Mis productos", style: hintStyle),
-          items: _fruits.map((fruit) {
+        borderRadius: BorderRadius.circular(20),
+        value: _selectedCrud,
+        underline: underline,
+        icon: icon,
+        dropdownColor: dropdownColor,
+        style: style,
+        iconEnabledColor: iconEnabledColor,
+        onChanged: (String? newValue) {
+          setState(() {
+            _selectedCrud = newValue;
+            if (_selectedCrud == 'Ver Inventario') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TuInventario_Screen()),
+              );
+            }
+          });
+        },
+        hint: Text("Mis productos", style: hintStyle),
+        items: _crud.map((crud) {
           return DropdownMenuItem<String>(
-            value: fruit['name'],
+            value: crud['name'],
             child: Row(
               children: [
-                Icon(fruit['icon'],color: fruit['color']),
+                Icon(crud['icon'], color: crud['color']),
                 SizedBox(width: 5),
-                Text(fruit['name']),
+                Text(crud['name']),
               ],
             ),
           );
         }).toList(),
       );
 }
-
-//Combobox despleglabe
