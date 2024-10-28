@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tiendita/screns/tuInventario_Screnn.dart'; // Asegúrate de que la ruta sea correcta
-import 'package:tiendita/widgets/Personalizados_Screnns/FeedBack_Inventario.dart';
 import 'package:tiendita/widgets/Personalizados_Screnns/FeedBack_Productos.dart';
 import 'package:tiendita/widgets/TuProductos/Form_AgrProd.dart';
 import 'package:tiendita/widgets/TuProductos/Form_EditProd.dart';
@@ -17,8 +16,12 @@ class _TuProductos_ScrennState extends State<TuProductos_Screnn> {
   //Padings constantes
   final double padings_H = 30;
   final double padings_V = 25;
-
   String? _selectedCrud;
+  //TODO GENERALES
+  //todo hacer cada uno de los forms para el CRud
+  //todo arreglar el feeedback
+  //todo darle un diseño mas bonito a todo agregar UX ala screen y los colores sombras a cada uno
+  //todo agregar el icono hacia atras en el appbaner y darle aniomacion que aparesca por primera ver cuando vena la screen
 
   final List<Map<String, dynamic>> _crud = [
     {
@@ -79,24 +82,27 @@ class _TuProductos_ScrennState extends State<TuProductos_Screnn> {
                       if (index == 0) const FBProductos(),
                       // Título de la sección 'Tus Productos'
                       if (index == 0)
-                        Container(
-                          height: pantalla.height * .08,
-                          alignment: Alignment.centerLeft,
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Productos',
-                                style: TextStyle(
-                                  decoration: TextDecoration.none,
-                                  fontFamily:
-                                      AutofillHints.creditCardSecurityCode,
-                                  fontSize: 24,
-                                  color: Color.fromARGB(255, 0, 0, 0),
-                                  fontWeight: FontWeight.bold,
+                        Padding(
+                          padding: EdgeInsets.only(top: padings_V),
+                          child: Container(
+                            height: pantalla.height * .08,
+                            alignment: Alignment.centerLeft,
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Productos',
+                                  style: TextStyle(
+                                    decoration: TextDecoration.none,
+                                    fontFamily:
+                                        AutofillHints.creditCardSecurityCode,
+                                    fontSize: 24,
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       // Aquí iría el CRUD Combo box y los widgets adicionales
