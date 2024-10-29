@@ -27,10 +27,11 @@ class _home_screenState extends State<home_screen> {
   Widget build(BuildContext context) {
     Size pantalla = MediaQuery.of(context).size;
     //Meter los padings globales
-  
+
     return Scaffold(
       appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(150.0), // Ajusta la altura según tu diseño
+        preferredSize:
+            Size.fromHeight(150.0), // Ajusta la altura según tu diseño
         child: AppBarr(),
       ),
       body: SafeArea(
@@ -64,26 +65,28 @@ class _home_screenState extends State<home_screen> {
                   // Widget de tus productos reguistrados
                   Expanded(
                       child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const TuInventario_Screen()),
-                        );
-                    },
-                    child: const TuInventario()
-                  ))// Mueve esto fuera del Container
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const TuInventario_Screen()),
+                            );
+                          },
+                          child:
+                              const TuInventario())) // Mueve esto fuera del Container
                 ],
               ),
             ),
             SizedBox(height: 30),
-            
+
             // Tus productos
             Container(
-              height: pantalla.height *.65, // Puedes ajustar esto
+              height: pantalla.height * .65, // Puedes ajustar esto
               width: pantalla.width,
-              decoration: BoxDecoration(color: Color.fromARGB(255, 255, 122, 122)),
-      
+              decoration:
+                  BoxDecoration(color: Color.fromARGB(255, 255, 122, 122)),
+
               child: Column(
                 children: [
                   Padding(
@@ -107,35 +110,37 @@ class _home_screenState extends State<home_screen> {
                   Row(
                     children: [
                       Container(
-                        height: pantalla.height*.25,
-                        width: pantalla.width*.50,
-                        // decoration: BoxDecoration(color: Colors.black87),
-                        //carta_1Productos
-                        child: TextButton(
+                          height: pantalla.height * .25,
+                          width: pantalla.width * .50,
+                          // decoration: BoxDecoration(color: Colors.black87),
+                          //carta_1Productos
+                          child: TextButton(
                             onPressed: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const TuProductos_Screnn()),
+                                    builder: (context) =>
+                                        const TuProductos_Screnn()),
                               );
                             },
                             child: const TusProductos(),
                           )),
                       Container(
-                        height: pantalla.height*.25,
-                        width: pantalla.width*.50,
-                        decoration: BoxDecoration(color: Color.fromARGB(149, 16, 212, 32)),
-                        child: TextButton(
+                          height: pantalla.height * .25,
+                          width: pantalla.width * .50,
+                          decoration: BoxDecoration(
+                              color: Color.fromARGB(149, 16, 212, 32)),
+                          child: TextButton(
                             onPressed: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const TuProductos_Screnn()),
+                                    builder: (context) =>
+                                        const TuProductos_Screnn()),
                               );
                             },
                             child: const TusProductos(),
-                          )
-                      )
+                          ))
                     ],
                   ),
                   // SizedBox( height: 20),
@@ -146,50 +151,52 @@ class _home_screenState extends State<home_screen> {
                     child: Row(
                       children: [
                         Container(
-                          height: pantalla.height*.25,
-                          width: pantalla.width*.50,
-                          // decoration: BoxDecoration(color: Colors.black87),
-                          //carta_1Productos
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const TuProductos_Screnn()),
-                              );
-                            },
-                            child: const TusProductos(),
-                          )
-                        ),
+                            height: pantalla.height * .25,
+                            width: pantalla.width * .50,
+                            // decoration: BoxDecoration(color: Colors.black87),
+                            //carta_1Productos
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const TuProductos_Screnn()),
+                                );
+                              },
+                              child: const TusProductos(),
+                            )),
                         Container(
-                          height: pantalla.height*.25,
-                          width: pantalla.width*.50,
-                          decoration: BoxDecoration(color: Color.fromARGB(149, 16, 212, 32)),
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const TuProductos_Screnn()),
-                              );
-                            },
-                            child: const TusProductos(),
-                          )
-                        )
+                            height: pantalla.height * .25,
+                            width: pantalla.width * .50,
+                            decoration: BoxDecoration(
+                                color: Color.fromARGB(149, 16, 212, 32)),
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const TuProductos_Screnn()),
+                                );
+                              },
+                              child: const TusProductos(),
+                            ))
                       ],
                     ),
                   )
                 ],
               ),
             ),
-      
+
             //Esta es Tus Promociones
             //TODO se ve a expandir alas prociones que haya
             //TODO si hay 1 mostrar una SINO monstrar que no hay promociones aun
             Container(
-              height: pantalla.height*.65, // Puedes ajustar esto
+              height: pantalla.height * .65, // Puedes ajustar esto
               width: pantalla.width,
-              decoration: BoxDecoration(color: Color.fromARGB(255, 87, 119, 141)),
+              decoration:
+                  BoxDecoration(color: Color.fromARGB(255, 87, 119, 141)),
               child: Column(
                 children: [
                   Padding(
@@ -200,7 +207,7 @@ class _home_screenState extends State<home_screen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                           const Text(
+                          const Text(
                             'Tus Productos',
                             style: TextStyle(
                               decoration: TextDecoration.none,
@@ -219,18 +226,22 @@ class _home_screenState extends State<home_screen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => TuPromociones_Screen()),
+                                    builder: (context) =>
+                                        TuPromociones_Screen()),
                               );
                             },
                             child: Text('Ver mas'),
                             style: OutlinedButton.styleFrom(
-                              foregroundColor: const Color.fromARGB(255, 0, 0, 0), side: BorderSide.none, // Borde
+                              foregroundColor:
+                                  const Color.fromARGB(255, 0, 0, 0),
+                              side: BorderSide.none, // Borde
                               //pading interno
                               padding: EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 10),
                               textStyle: TextStyle(
                                 decoration: TextDecoration.none,
-                                fontFamily: AutofillHints.creditCardSecurityCode,
+                                fontFamily:
+                                    AutofillHints.creditCardSecurityCode,
                                 fontSize: 16,
                                 color: Color.fromARGB(255, 0, 0, 0),
                                 fontWeight: FontWeight.w200,
@@ -247,7 +258,7 @@ class _home_screenState extends State<home_screen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => TuPromociones_Screen()),
-                      ); 
+                      );
                     },
                     child: const TuPromociones(),
                   )
@@ -259,7 +270,7 @@ class _home_screenState extends State<home_screen> {
             //Lo que manda llamar aqui es el widget personalizado de lo LISTA DE SURTIDO
             Container(
               width: pantalla.width,
-              height: pantalla.height*.40,
+              height: pantalla.height * .40,
               decoration: BoxDecoration(color: Colors.lightGreenAccent),
               child: Column(
                 children: [
@@ -272,7 +283,7 @@ class _home_screenState extends State<home_screen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                           const Text(
+                          const Text(
                             'Lista De Surtido',
                             style: TextStyle(
                               decoration: TextDecoration.none,
@@ -297,13 +308,16 @@ class _home_screenState extends State<home_screen> {
                             },
                             child: Text('Ver mas'),
                             style: OutlinedButton.styleFrom(
-                              foregroundColor: const Color.fromARGB(255, 0, 0, 0), side: BorderSide.none, // Borde
+                              foregroundColor:
+                                  const Color.fromARGB(255, 0, 0, 0),
+                              side: BorderSide.none, // Borde
                               //pading interno
                               padding: EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 10),
                               textStyle: TextStyle(
                                 decoration: TextDecoration.none,
-                                fontFamily: AutofillHints.creditCardSecurityCode,
+                                fontFamily:
+                                    AutofillHints.creditCardSecurityCode,
                                 fontSize: 16,
                                 color: Color.fromARGB(255, 0, 0, 0),
                                 fontWeight: FontWeight.w200,
