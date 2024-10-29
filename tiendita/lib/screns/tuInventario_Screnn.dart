@@ -13,6 +13,12 @@ class _TuInventarioScreenState extends State<TuInventario_Screen> {
   final double padings_H = 30;
   final double padings_V = 25;
 
+  //TODO GENERALES
+  //todo hacer cada uno de los forms para el CRud
+  //todo arreglar el feeedback
+  //todo darle un diseño mas bonito a todo agregar UX ala screen y los colores sombras a cada uno
+  //todo agregar el icono hacia atras en el appbaner y darle aniomacion que aparesca por primera ver cuando vena la screen
+
   @override
   Widget build(BuildContext context) {
     Size pantalla = MediaQuery.of(context).size;

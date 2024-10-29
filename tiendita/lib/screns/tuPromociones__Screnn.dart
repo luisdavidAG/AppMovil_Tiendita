@@ -17,117 +17,125 @@ class _TuPromociones_ScreenState extends State<TuPromociones_Screen> {
   @override
   Widget build(BuildContext context) {
     Size pantalla = MediaQuery.of(context).size;
+
     return Scaffold(
       //appBar:
       //Cuerpo
       body: SafeArea(
-          child: Stack(
-        children: [
-          Container(
-            height: double.infinity,
-            width: double.infinity,
-            decoration: const BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(40),
-                    topRight: Radius.circular(40))),
-          ),
-          //aqui van lo que es interactivo
-          ListView(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: padings_H, vertical: padings_V),
-                child: Column(
-                  children: [
-                    //Este es el feed back de promociones
-                    //Este es el Feedback Creo que tendre que hacer uno por cada uno :,vvvv
-                    const FBPromociones(),
-                    //Despues son los titulos
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 10, top: 25),
-                      child: Container(
-                        height: pantalla.height * .08,
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // Título de la sección 'Tus Productos'
-                            const Text(
-                              'Tus Promociones \nExistentes',
-                              style: TextStyle(
-                                decoration: TextDecoration.none,
-                                fontFamily:
-                                    AutofillHints.creditCardSecurityCode,
-                                fontSize: 24,
-                                color: Color.fromARGB(255, 0, 0, 0),
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 100),
-                            // Botón 'Más Vendidos'
-                            OutlinedButton(
-                              onPressed: () {
-                                // Acción cuando se presiona el botón
-                                // Mandar a la pantalla Tus Promociones
-                              },
-                              style: OutlinedButton.styleFrom(
-                                foregroundColor: const Color.fromARGB(
-                                    255, 0, 0, 0), side: BorderSide.none, // Sin borde
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 20,
-                                  vertical: 10,
-                                ), // Padding interno
-                                textStyle: const TextStyle(
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              leading: Icon(Icons.menu),
+              expandedHeight: pantalla.height * .20,
+              floating: false,
+              pinned: true,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Container(
+                  color: Colors.deepPurpleAccent,
+                ),
+                title: Text('Hola Name'),
+              ),
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) => Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: padings_H,
+                    vertical: padings_V,
+                  ),
+                  child: Column(
+                    children: [
+                      //Este es el feed back de promociones
+                      //Este es el Feedback Creo que tendre que hacer uno por cada uno :,vvvv
+                      const FBPromociones(),
+                      //Despues son los titulos
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 10, top: 25),
+                        child: Container(
+                          height: pantalla.height * .08,
+                          alignment: Alignment.centerLeft,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // Título de la sección 'Tus Productos'
+                              const Text(
+                                'Tus Promociones \nExistentes',
+                                style: TextStyle(
                                   decoration: TextDecoration.none,
                                   fontFamily:
                                       AutofillHints.creditCardSecurityCode,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w200,
+                                  fontSize: 24,
                                   color: Color.fromARGB(255, 0, 0, 0),
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              child: const Row(
-                                mainAxisSize: MainAxisSize
-                                    .min, // Ajusta el ancho al contenido
-                                children: [
-                                  Text('Ver más'), // Texto del botón
-                                  // Espacio entre texto e ícono
-                                  Icon(
-                                    Icons.arrow_drop_down, // Flecha hacia abajo
-                                    color: Color.fromARGB(
-                                        255, 0, 0, 0), // Color del ícono
+                              const SizedBox(height: 100),
+                              // Botón 'Más Vendidos'
+                              OutlinedButton(
+                                onPressed: () {
+                                  // Acción cuando se presiona el botón
+                                  // Mandar a la pantalla Tus Promociones
+                                },
+                                style: OutlinedButton.styleFrom(
+                                  foregroundColor:
+                                      const Color.fromARGB(255, 0, 0, 0),
+                                  side: BorderSide.none, // Sin borde
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 20,
+                                    vertical: 10,
+                                  ), // Padding interno
+                                  textStyle: const TextStyle(
+                                    decoration: TextDecoration.none,
+                                    fontFamily:
+                                        AutofillHints.creditCardSecurityCode,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w200,
+                                    color: Color.fromARGB(255, 0, 0, 0),
                                   ),
-                                ],
-                              ),
-                            )
-                          ],
+                                ),
+                                child: const Row(
+                                  mainAxisSize: MainAxisSize
+                                      .min, // Ajusta el ancho al contenido
+                                  children: [
+                                    Text('Ver más'), // Texto del botón
+                                    // Espacio entre texto e ícono
+                                    Icon(
+                                      Icons
+                                          .arrow_drop_down, // Flecha hacia abajo
+                                      color: Color.fromARGB(
+                                          255, 0, 0, 0), // Color del ícono
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    //y las cartas de las promociones
-                    //TODO Checar lo de generar las promociones
-                    /*  const Row(
-                      children: [
-                        Text('Aqui van las mugres promociones'),
-                      ],
-                    ),
-                  */
-                    Column(
-                      children: [
-                        Carta_Promocion(),
-                        Carta_Promocion(),
-                        Carta_Promocion(),
-                        Carta_Promocion(),
-                      ],
-                    ),
-                  ],
+                      //y las cartas de las promociones
+                      //TODO Checar lo de generar las promociones
+                      /*  const Row(
+                        children: [
+                          Text('Aqui van las mugres promociones'),
+                        ],
+                      ),*/
+                      Column(
+                        children: [
+                          Carta_Promocion(),
+                          Carta_Promocion(),
+                          Carta_Promocion(),
+                          Carta_Promocion(),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              )
-            ],
-          )
-        ],
-      )),
+                childCount: 1, // Ajusta según el número de elementos
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
