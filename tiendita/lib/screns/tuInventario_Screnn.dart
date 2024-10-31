@@ -15,10 +15,11 @@ class _TuInventarioScreenState extends State<TuInventario_Screen> {
   final double padings_V = 25;
 
   //TODO GENERALES
-  //todo arreglar el feedback
+  //DO arreglar el feedback
   //todo darle un diseño mas bonito a todo agregar UX ala screen y los colores sombras a cada uno
-  //todo agregar el icono hacia atras en el appbaner y darle animación que aparezca por primera vez cuando vena la screen
-  //todo agregar el buscador ahi se mostraran las cartas
+  //DO agregar el icono hacia atras en el appbaner
+  //TOdo APPBANER darle animación que aparezca por primera vez cuando vena la screen
+  //todo agregar el buscador ahi se mostraran las cartas y que retraga el appbaner
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +29,62 @@ class _TuInventarioScreenState extends State<TuInventario_Screen> {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
-              leading: Icon(Icons.menu),
-              expandedHeight: pantalla.height * .20,
+              backgroundColor: const Color(0xFF5C5DE9),
+              expandedHeight: pantalla.height * 0.2,
               floating: false,
               pinned: true,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Container(
-                  color: const Color.fromARGB(255, 172, 156, 218),
-                ),
-                title: Text('Hola Name'),
+              flexibleSpace: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  double expansionFraction =
+                      (constraints.maxHeight - kToolbarHeight) /
+                          (pantalla.height * 0.2 - kToolbarHeight);
+
+                  return FlexibleSpaceBar(
+                    title: Row(
+                      children: [
+                        SizedBox(width: 40), // Espacio entre ícono y texto
+                        Text(
+                          expansionFraction < 0.5 ? 'Inventario' : 'Hola Name',
+                          style: TextStyle(
+                              color: expansionFraction < 0.5
+                                  ? Colors.white
+                                  : Colors.white,
+                              fontSize: expansionFraction < 0.5 ? 24 : 26,
+                              fontWeight: FontWeight.w900),
+                        ),
+                      ],
+                    ),
+                    background: Stack(
+                      children: [
+                        Opacity(
+                          opacity: expansionFraction > 0.5 ? 1 : 0,
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color(0xFF5C5DE9),
+                                  Color(0xFF8A6DE9),
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Opacity(
+                          opacity: expansionFraction <= 0.5 ? 1 : 0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF5C5DE9),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    centerTitle: true,
+                    titlePadding: EdgeInsets.only(left: 8, bottom: 10),
+                  );
+                },
               ),
             ),
             SliverList(
@@ -51,63 +99,59 @@ class _TuInventarioScreenState extends State<TuInventario_Screen> {
                       //Este es el feedback. Creo que tendre que hacer uno por cada uno :,vvvv
                       const FBInventario(),
                       //Despues son los titulos
-                      Container(
-                        height: pantalla.height * .08,
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // Título de la sección 'Tus Productos'
-                            const Text(
-                              'Tus Productos',
-                              style: TextStyle(
-                                decoration: TextDecoration.none,
-                                fontFamily:
-                                    AutofillHints.creditCardSecurityCode,
-                                fontSize: 24,
-                                color: Color.fromARGB(255, 0, 0, 0),
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 100),
-                            // Botón 'Más Vendidos'
-                            OutlinedButton(
-                              onPressed: () {
-                                // Acción cuando se presiona el botón
-                                // Mandar a la pantalla Tus Promociones
-                              },
-                              style: OutlinedButton.styleFrom(
-                                foregroundColor:
-                                    const Color.fromARGB(255, 0, 0, 0),
-                                side: BorderSide.none, // Sin borde
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 20,
-                                  vertical: 10,
-                                ), // Padding interno
-                                textStyle: const TextStyle(
+                      //TODO Alienar los componentes del boton ver mas ala izquierda
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: padings_V),
+                        child: Container(
+                          height: pantalla.height * .08,
+                          alignment: Alignment.centerLeft,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                'Tus Productos',
+                                style: TextStyle(
                                   decoration: TextDecoration.none,
                                   fontFamily:
                                       AutofillHints.creditCardSecurityCode,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w200,
+                                  fontSize: 24,
                                   color: Color.fromARGB(255, 0, 0, 0),
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              child: const Row(
-                                mainAxisSize: MainAxisSize
-                                    .min, // Ajusta el ancho al contenido
-                                children: [
-                                  Text('Ver más'), // Texto del botón
-                                  // Espacio entre texto e ícono
-                                  Icon(
-                                    Icons.arrow_drop_down, // Flecha hacia abajo
-                                    color: Color.fromARGB(
-                                        255, 0, 0, 0), // Color del ícono
+                              const SizedBox(height: 100),
+                              OutlinedButton(
+                                onPressed: () {},
+                                style: OutlinedButton.styleFrom(
+                                  foregroundColor:
+                                      const Color.fromARGB(255, 0, 0, 0),
+                                  side: BorderSide.none,
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 20,
+                                    vertical: 10,
                                   ),
-                                ],
-                              ),
-                            )
-                          ],
+                                  textStyle: const TextStyle(
+                                    decoration: TextDecoration.none,
+                                    fontFamily:
+                                        AutofillHints.creditCardSecurityCode,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w200,
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                  ),
+                                ),
+                                child: const Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text('Ver más'),
+                                    Icon(
+                                      Icons.arrow_drop_down,
+                                      color: Color.fromARGB(255, 0, 0, 0),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                       //y las cartas de los productos
@@ -117,10 +161,8 @@ class _TuInventarioScreenState extends State<TuInventario_Screen> {
                       Container(
                         height: pantalla.height * .12,
                         width: pantalla.width,
-                        //sdecoration: BoxDecoration(color: Colors.cyan),
                         child: SearchBar(),
                       ),
-
                       Container(
                         height: pantalla.height,
                         width: pantalla.width,
@@ -131,7 +173,7 @@ class _TuInventarioScreenState extends State<TuInventario_Screen> {
                     ],
                   ),
                 ),
-                childCount: 1, // Ajusta según el número de elementos
+                childCount: 1,
               ),
             ),
           ],
@@ -152,27 +194,33 @@ class SearchBar extends StatefulWidget {
 class _SearchBarState extends State<SearchBar>
     with SingleTickerProviderStateMixin {
   bool _isActive = false;
-
+  final double padings_V = 25;
+  //TODO decirle a chat pro que arregle el buscador
+  // no me gusta que este no este centrado
+  //cuando le de tap afuer del contenedor que se desactive
+  //que no nada mas le de tap a el icono se active si no que cuando le de tap al buscador
+  //cuando este activado qye el el Fb desaparesca
+  //que me muestre opcione de la busqueda
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.only(bottom: padings_V),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1), // Sombra sutil
-              spreadRadius: 2, // Extensión de la sombra
-              blurRadius: 5, // Desenfoque de la sombra
-              offset: Offset(0, 3), // Desplazamiento de la sombra
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: Offset(0, 3),
             ),
             BoxShadow(
-              color: Colors.grey.withOpacity(0.2), // Sombra secundaria
-              spreadRadius: -5, // Extensión de la sombra
-              blurRadius: 8, // Desenfoque de la sombra
-              offset: Offset(-5, -5), // Desplazamiento de la sombra
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: -5,
+              blurRadius: 8,
+              offset: Offset(-5, -5),
             ),
           ],
         ),
@@ -195,11 +243,10 @@ class _SearchBarState extends State<SearchBar>
                   child: _isActive
                       ? Container(
                           alignment: Alignment.centerLeft,
-                          width: double
-                              .infinity, // Asegúrate de que ocupe todo el ancho
-                          height: pantalla.height, // Tamaño uniforme
+                          width: double.infinity,
+                          height: pantalla.height,
                           decoration: BoxDecoration(
-                            color: const Color.fromARGB(137, 38, 182, 170),
+                            color: const Color.fromARGB(255, 255, 255, 255),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: TextField(
@@ -232,6 +279,7 @@ class _SearchBarState extends State<SearchBar>
                           onPressed: () {
                             setState(() {
                               _isActive = true;
+                              //cscsc
                             });
                           },
                           icon: const Icon(

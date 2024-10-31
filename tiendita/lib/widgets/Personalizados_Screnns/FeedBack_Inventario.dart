@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class FBInventario extends StatefulWidget {
   const FBInventario({super.key});
@@ -13,114 +12,302 @@ class _FBInventarioState extends State<FBInventario> {
   final double padings_V = 25;
   late String formattedDate;
 
+  //TODO ASIGNAR VARIABLES
   @override
   void initState() {
     super.initState();
-    // Obtenemos la fecha actual y la formateamos
     DateTime now = DateTime.now();
-    formattedDate = DateFormat('EEEE, d MMMM yyyy', 'es_ES').format(now); // "viernes, 8 de mayo de 2023"
+    List<String> days = [
+      "Domingo",
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado"
+    ];
+    List<String> months = [
+      "enero",
+      "febrero",
+      "marzo",
+      "abril",
+      "mayo",
+      "junio",
+      "julio",
+      "agosto",
+      "septiembre",
+      "octubre",
+      "noviembre",
+      "diciembre"
+    ];
+
+    String dayOfWeek = days[now.weekday - 1];
+    String day = now.day.toString().padLeft(2, '0');
+    String month = months[now.month - 1];
+    String year = now.year.toString();
+    formattedDate = "$dayOfWeek $day de $month $year";
   }
 
   @override
   Widget build(BuildContext context) {
     Size pantalla = MediaQuery.of(context).size;
 
-    return Scaffold(
-      backgroundColor: Colors.white, // Fondo blanco
-      body: Container(
-        width: pantalla.width,
-
-        // DECORACIONES
-        decoration: BoxDecoration(
-          color: Colors.blueAccent[100], // Cambié el color para ver el contenedor
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(18),
-            bottomRight: Radius.circular(18),
-            bottomLeft: Radius.elliptical(10, 6),
-            topRight: Radius.elliptical(10, 6),
-          ),
+    return Container(
+      width: pantalla.width,
+      padding: EdgeInsets.symmetric(horizontal: padings_H),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        gradient: const LinearGradient(
+          colors: [Color(0xFF8A6DE9), Color(0xFF5C5DE9)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
-
-        // Contenido
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: padings_H),
-              child: Container(
-                height: pantalla.height * .10,
-                width: pantalla.width,
-                alignment: Alignment.centerLeft,
-                child: const Padding(
-                  padding: EdgeInsets.only(left: 5),
-                  child: CircleAvatar(
-                    maxRadius: 25,
-                    backgroundColor: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: padings_H),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Tu Tienda',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child: Text(formattedDate), // Mostramos la fecha actual
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: padings_H, vertical: 15),
-              alignment: Alignment.centerLeft,
-              child: const Text(
-                'Detalles de \nTu Inventario',
-                style: TextStyle(
-                  fontSize: 18,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            spreadRadius: 10,
+            blurRadius: 8,
+            offset: Offset(2, 4),
+          ),
+        ],
+      ),
+      // Contenido
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 10),
+          //FECHA
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                formattedDate.split(" ")[0] + " ",
+                style: const TextStyle(
+                  fontSize: 14,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: padings_H, vertical: 5),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Tu inventario'),
-                  Text('Num_Productos'),
-                ],
+              Text(
+                formattedDate.substring(formattedDate.indexOf(" ") + 1),
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: Colors.black54,
+                ),
+              ),
+            ],
+          ),
+          //Titulo Carta
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 2),
+              child: const Text(
+                'Detalles de \nTu Inventario',
+                style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.white70),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: padings_H, vertical: 5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text('Tu inventario'),
-                  Text('Num_Productos'),
-                ],
+          ),
+          //Contenedores
+          //Caractesiticas
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              //Contenedor Productos
+              Container(
+                height: pantalla.height * .15,
+                width: pantalla.width * .20,
+                decoration: BoxDecoration(
+                  color: Color(0xFF1A1A1A),
+                  borderRadius: BorderRadius.circular(15),
+                  gradient: RadialGradient(
+                    colors: [
+                      Color(0xFF1A1A1A),
+                      Color(0xFF000000).withOpacity(0.7),
+                    ],
+                    radius: 1.5,
+                    center: Alignment.center,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.3),
+                      spreadRadius: 2,
+                      blurRadius: 10,
+                      offset: const Offset(0, 5),
+                    ),
+                  ],
+                ),
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 15),
+                      child: Text(
+                        //Variable de productos
+                        //count de los productos del inventario Num_Pro
+                        '200',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w900),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 10),
+                      child: Column(
+                        children: [
+                          Text(
+                            'Productos',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w900,
+                                fontSize: 10),
+                          ),
+                          Text(
+                            'Existentes',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w900,
+                                fontSize: 8),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: padings_H, vertical: 5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text('Tu inventario'),
-                  Text('Num_Productos'),
-                ],
+              //Contenedor Bajo Stock
+              Container(
+                height: pantalla.height * .15,
+                width: pantalla.width * .20,
+                decoration: BoxDecoration(
+                  color: Color(0xFF1A1A1A),
+                  borderRadius: BorderRadius.circular(15),
+                  gradient: RadialGradient(
+                    colors: [
+                      Color(0xFF1A1A1A),
+                      Color(0xFF000000).withOpacity(0.7),
+                    ],
+                    radius: 1.5,
+                    center: Alignment.center,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.3),
+                      spreadRadius: 2,
+                      blurRadius: 10,
+                      offset: Offset(0, 5),
+                    ),
+                  ],
+                ),
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 15),
+                      child: Text(
+                        //Variable de productos Bajo Stock
+                        //count de los productos del inventario STk_Bajo
+                        '5',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w900),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 10),
+                      child: Column(
+                        children: [
+                          Text(
+                            'Productos',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w900,
+                                fontSize: 10),
+                          ),
+                          Text(
+                            'En Bajo Stock',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w900,
+                                fontSize: 8),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
+              //Contenedor Ofertas Activas
+              Container(
+                height: pantalla.height * .15,
+                width: pantalla.width * .20,
+                decoration: BoxDecoration(
+                  color: Color(0xFF1A1A1A),
+                  borderRadius: BorderRadius.circular(15),
+                  gradient: RadialGradient(
+                    colors: [
+                      Color(0xFF1A1A1A),
+                      Color(0xFF000000).withOpacity(0.7),
+                    ],
+                    radius: 1.5,
+                    center: Alignment.center,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.3),
+                      spreadRadius: 2,
+                      blurRadius: 10,
+                      offset: Offset(0, 5),
+                    ),
+                  ],
+                ),
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 15),
+                      child: Text(
+                        //Variable de productos Bajo Stock
+                        //count de los productos del inventario Ofr_Alt
+                        '2',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w900),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 10),
+                      child: Column(
+                        children: [
+                          Text(
+                            'Ofertas',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w900,
+                                fontSize: 10),
+                          ),
+                          Text(
+                            'Activas',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w900,
+                                fontSize: 8),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 10),
+        ],
       ),
     );
   }
