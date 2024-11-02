@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tiendita/widgets/Personalizados_Screnns/FeedBack_Inventario.dart';
-import 'package:tiendita/widgets/TuInventario/Tu_Inventario.dart';
 
 class TuInventario_Screen extends StatefulWidget {
   const TuInventario_Screen({super.key});
@@ -13,20 +12,29 @@ class _TuInventarioScreenState extends State<TuInventario_Screen> {
   //Padings constantes
   final double padings_H = 30;
   final double padings_V = 25;
+  final ScrollController _scrollController = ScrollController();
+  final GlobalKey _searchKey = GlobalKey();
 
-  //TODO GENERALES
-  //DO arreglar el feedback
-  //todo darle un diseño mas bonito a todo agregar UX ala screen y los colores sombras a cada uno
-  //DO agregar el icono hacia atras en el appbaner
-  //TOdo APPBANER darle animación que aparezca por primera vez cuando vena la screen
-  //todo agregar el buscador ahi se mostraran las cartas y que retraga el appbaner
+  // Calcula la posición del `SearchBar` y hace scroll hasta allí
+  void _scrollToSearchBar() {
+    final RenderBox renderBox = _searchKey.currentContext?.findRenderObject() as RenderBox;
+    final position = renderBox.localToGlobal(Offset.zero).dy + _scrollController.position.pixels;
+
+    _scrollController.animateTo(
+      position - kToolbarHeight, // Ajuste para compensar la altura del AppBar
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     Size pantalla = MediaQuery.of(context).size;
     return Scaffold(
+      //backgroundColor: const Color(0xFF5C5DE9),
       body: SafeArea(
         child: CustomScrollView(
+          controller: _scrollController,
           slivers: [
             SliverAppBar(
               backgroundColor: const Color(0xFF5C5DE9),
@@ -38,19 +46,31 @@ class _TuInventarioScreenState extends State<TuInventario_Screen> {
                   double expansionFraction =
                       (constraints.maxHeight - kToolbarHeight) /
                           (pantalla.height * 0.2 - kToolbarHeight);
-
                   return FlexibleSpaceBar(
                     title: Row(
                       children: [
-                        SizedBox(width: 40), // Espacio entre ícono y texto
-                        Text(
-                          expansionFraction < 0.5 ? 'Inventario' : 'Hola Name',
-                          style: TextStyle(
-                              color: expansionFraction < 0.5
-                                  ? Colors.white
-                                  : Colors.white,
-                              fontSize: expansionFraction < 0.5 ? 24 : 26,
-                              fontWeight: FontWeight.w900),
+                        SizedBox(width: 40),
+                        TweenAnimationBuilder<double>(
+                          tween: Tween<double>(begin: 0.0, end: 1.0),
+                          duration: Duration(milliseconds: 800),
+                          builder: (context, value, child) {
+                            return Opacity(
+                              opacity: value,
+                              child: Transform.translate(
+                                offset: Offset(0, 0),
+                                child: Text(
+                                  expansionFraction < 0.5
+                                      ? 'Inventario'
+                                      : 'Hola Name',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: expansionFraction < 0.5 ? 24 : 26,
+                                    fontWeight: FontWeight.w900,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -74,9 +94,7 @@ class _TuInventarioScreenState extends State<TuInventario_Screen> {
                         Opacity(
                           opacity: expansionFraction <= 0.5 ? 1 : 0,
                           child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF5C5DE9),
-                            ),
+                            color: const Color(0xFF5C5DE9),
                           ),
                         ),
                       ],
@@ -87,6 +105,8 @@ class _TuInventarioScreenState extends State<TuInventario_Screen> {
                 },
               ),
             ),
+
+            //Lista
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) => Padding(
@@ -99,8 +119,8 @@ class _TuInventarioScreenState extends State<TuInventario_Screen> {
                       //Este es el feedback. Creo que tendre que hacer uno por cada uno :,vvvv
                       const FBInventario(),
                       //Despues son los titulos
-                      //TODO Alienar los componentes del boton ver mas ala izquierda
                       Padding(
+                        key: _searchKey, // Asigna el GlobalKey al contenedor del título
                         padding: EdgeInsets.symmetric(vertical: padings_V),
                         child: Container(
                           height: pantalla.height * .08,
@@ -112,35 +132,29 @@ class _TuInventarioScreenState extends State<TuInventario_Screen> {
                                 'Tus Productos',
                                 style: TextStyle(
                                   decoration: TextDecoration.none,
-                                  fontFamily:
-                                      AutofillHints.creditCardSecurityCode,
+                                  fontFamily: AutofillHints.creditCardSecurityCode,
                                   fontSize: 24,
                                   color: Color.fromARGB(255, 0, 0, 0),
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              const SizedBox(height: 100),
                               OutlinedButton(
+                                //Cuando se toque que va hacer
                                 onPressed: () {},
+                                //Estilo
                                 style: OutlinedButton.styleFrom(
-                                  foregroundColor:
-                                      const Color.fromARGB(255, 0, 0, 0),
+                                  foregroundColor: const Color.fromARGB(255, 0, 0, 0),
                                   side: BorderSide.none,
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 20,
-                                    vertical: 10,
-                                  ),
                                   textStyle: const TextStyle(
                                     decoration: TextDecoration.none,
-                                    fontFamily:
-                                        AutofillHints.creditCardSecurityCode,
+                                    fontFamily: AutofillHints.creditCardSecurityCode,
                                     fontSize: 16,
                                     fontWeight: FontWeight.w200,
                                     color: Color.fromARGB(255, 0, 0, 0),
                                   ),
                                 ),
                                 child: const Row(
-                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text('Ver más'),
                                     Icon(
@@ -157,19 +171,18 @@ class _TuInventarioScreenState extends State<TuInventario_Screen> {
                       //y las cartas de los productos
                       //TODO Checar como puedo generar los productos en dos filas en un montón de columnas
                       //TODO O si no cambiar a solo una carta que se genere en columnas
-
-                      Container(
+                      SizedBox(
                         height: pantalla.height * .12,
                         width: pantalla.width,
-                        child: SearchBar(),
+                        child: SearchBar(onTap: _scrollToSearchBar),
                       ),
-                      Container(
-                        height: pantalla.height,
-                        width: pantalla.width,
-                        decoration: BoxDecoration(
-                          color: Colors.grey,
-                        ),
-                      )
+                      // Generación de las cartas
+                      Column(
+                        children: List.generate(8, (index) {
+                          return Text('Uno');
+                        }),
+                      ),
+                      SizedBox(height: 100),
                     ],
                   ),
                 ),
@@ -185,22 +198,27 @@ class _TuInventarioScreenState extends State<TuInventario_Screen> {
 
 //buscador
 class SearchBar extends StatefulWidget {
-  const SearchBar({Key? key}) : super(key: key);
+  final VoidCallback onTap;
+
+  const SearchBar({Key? key, required this.onTap}) : super(key: key);
 
   @override
   State<SearchBar> createState() => _SearchBarState();
 }
 
-class _SearchBarState extends State<SearchBar>
-    with SingleTickerProviderStateMixin {
+class _SearchBarState extends State<SearchBar> with SingleTickerProviderStateMixin {
   bool _isActive = false;
   final double padings_V = 25;
-  //TODO decirle a chat pro que arregle el buscador
-  // no me gusta que este no este centrado
-  //cuando le de tap afuer del contenedor que se desactive
-  //que no nada mas le de tap a el icono se active si no que cuando le de tap al buscador
-  //cuando este activado qye el el Fb desaparesca
-  //que me muestre opcione de la busqueda
+  final FocusNode _focusNode = FocusNode();
+
+  final String busqueda = '';
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -224,72 +242,95 @@ class _SearchBarState extends State<SearchBar>
             ),
           ],
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            if (!_isActive)
-              Padding(
-                padding: const EdgeInsets.only(left: 25),
-                child: Text(
-                  "Busca un producto",
-                  style: Theme.of(context).appBarTheme.titleTextStyle,
+        child: TextButton(
+          onPressed: () {
+            widget.onTap();
+            setState(() {
+              _isActive = true;
+              _focusNode.requestFocus();
+            });
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              if (!_isActive)
+                Padding(
+                  padding: const EdgeInsets.only(left: 25),
+                  child: Text(
+                    "Busca un producto",
+                    style: Theme.of(context).appBarTheme.titleTextStyle,
+                  ),
                 ),
-              ),
-            Expanded(
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 125),
-                  child: _isActive
-                      ? Container(
-                          alignment: Alignment.centerLeft,
-                          width: double.infinity,
-                          height: pantalla.height,
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 255, 255, 255),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: TextField(
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w200,
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 125),
+                    child: _isActive
+                        ? Container(
+                            alignment: Alignment.centerLeft,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 255, 255, 255),
+                              borderRadius: BorderRadius.circular(20),
                             ),
-                            enableSuggestions: false,
-                            onChanged: (value) => '',
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              hintText: 'Busca algun producto',
-                              focusColor: const Color.fromARGB(255, 0, 0, 0),
-                              prefixIcon: const Icon(Icons.search),
-                              suffixIcon: IconButton(
-                                onPressed: () {
+                            child: Focus(
+                              onFocusChange: (hasFocus) {
+                                if (!hasFocus) {
                                   setState(() {
                                     _isActive = false;
                                   });
+                                }
+                              },
+                              child: TextField(
+                                focusNode: _focusNode,
+                                onTap: () {
+                                  setState(() {
+                                    _isActive = true;
+                                  });
                                 },
-                                icon: const Icon(Icons.close),
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w200,
+                                ),
+                                enableSuggestions: false,
+                                onChanged: (value) => busqueda,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  hintText: 'Busca algun producto',
+                                  focusColor: const Color.fromARGB(255, 0, 0, 0),
+                                  prefixIcon: const Icon(Icons.search),
+                                  suffixIcon: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        _isActive = false;
+                                      });
+                                      _focusNode.unfocus();
+                                    },
+                                    icon: const Icon(Icons.close),
+                                  ),
+                                ),
                               ),
                             ),
+                          )
+                        : IconButton(
+                            onPressed: () {
+                              setState(() {
+                                widget.onTap();
+                                _isActive = true;
+                                _focusNode.requestFocus();
+                              });
+                            },
+                            icon: const Icon(Icons.search),
                           ),
-                        )
-                      : IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _isActive = true;
-                              //cscsc
-                            });
-                          },
-                          icon: const Icon(
-                            Icons.search,
-                          ),
-                        ),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

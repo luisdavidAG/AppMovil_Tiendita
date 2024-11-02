@@ -29,6 +29,8 @@ class _home_screenState extends State<home_screen> {
     //Meter los padings globales
 
     return Scaffold(
+      //meter un color de fondo que se vea solido pero agradable ala vista
+
       appBar: const PreferredSize(
         preferredSize:
             Size.fromHeight(150.0), // Ajusta la altura según tu diseño
@@ -38,7 +40,10 @@ class _home_screenState extends State<home_screen> {
         child: ListView(
           children: [
             // Tu inventario
-            //TODO Cambiar el contendor por un Boton para que me mande ala screen de Tu inventariob¿
+            //TODO Arreglar el diseño del contenedor que se vea perrisimo
+            //Sombras
+            //Imagen y demas
+            //Checar que puedo meter ahi
             Container(
               height: pantalla.height * .30,
               width: pantalla.width,

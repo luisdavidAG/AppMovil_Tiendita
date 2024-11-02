@@ -41,7 +41,7 @@ class _FBInventarioState extends State<FBInventario> {
       "diciembre"
     ];
 
-    String dayOfWeek = days[now.weekday - 1];
+    String dayOfWeek = days[now.weekday];
     String day = now.day.toString().padLeft(2, '0');
     String month = months[now.month - 1];
     String year = now.year.toString();
@@ -55,6 +55,8 @@ class _FBInventarioState extends State<FBInventario> {
     return Container(
       width: pantalla.width,
       padding: EdgeInsets.symmetric(horizontal: padings_H),
+      
+      //decoracion del feednack
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         gradient: const LinearGradient(
@@ -163,14 +165,14 @@ class _FBInventarioState extends State<FBInventario> {
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w900,
-                                fontSize: 10),
+                                fontSize: 12),
                           ),
                           Text(
                             'Existentes',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w900,
-                                fontSize: 8),
+                                fontSize: 10),
                           ),
                         ],
                       ),
@@ -226,14 +228,14 @@ class _FBInventarioState extends State<FBInventario> {
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w900,
-                                fontSize: 10),
+                                fontSize: 12),
                           ),
                           Text(
                             'En Bajo Stock',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w900,
-                                fontSize: 8),
+                                fontSize: 10),
                           ),
                         ],
                       ),
@@ -289,14 +291,14 @@ class _FBInventarioState extends State<FBInventario> {
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w900,
-                                fontSize: 10),
+                                fontSize: 12),
                           ),
                           Text(
                             'Activas',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w900,
-                                fontSize: 8),
+                                fontSize: 10),
                           ),
                         ],
                       ),
