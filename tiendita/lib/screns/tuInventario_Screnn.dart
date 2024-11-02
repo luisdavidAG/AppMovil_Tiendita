@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tiendita/widgets/Buscador.dart';
 import 'package:tiendita/widgets/Personalizados_Screnns/FeedBack_Inventario.dart';
 
 class TuInventario_Screen extends StatefulWidget {
@@ -9,11 +10,14 @@ class TuInventario_Screen extends StatefulWidget {
 }
 
 class _TuInventarioScreenState extends State<TuInventario_Screen> {
-  //Padings constantes
+  // Padding constantes
   final double padings_H = 30;
   final double padings_V = 25;
+  // Controlador y la llave del título
   final ScrollController _scrollController = ScrollController();
   final GlobalKey _searchKey = GlobalKey();
+  // la poderosa búsqueda
+  String busquedaInv = '';
 
   // Calcula la posición del `SearchBar` y hace scroll hasta allí
   void _scrollToSearchBar() {
@@ -31,7 +35,6 @@ class _TuInventarioScreenState extends State<TuInventario_Screen> {
   Widget build(BuildContext context) {
     Size pantalla = MediaQuery.of(context).size;
     return Scaffold(
-      //backgroundColor: const Color(0xFF5C5DE9),
       body: SafeArea(
         child: CustomScrollView(
           controller: _scrollController,
@@ -44,8 +47,7 @@ class _TuInventarioScreenState extends State<TuInventario_Screen> {
               flexibleSpace: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
                   double expansionFraction =
-                      (constraints.maxHeight - kToolbarHeight) /
-                          (pantalla.height * 0.2 - kToolbarHeight);
+                      (constraints.maxHeight - kToolbarHeight) / (pantalla.height * 0.2 - kToolbarHeight);
                   return FlexibleSpaceBar(
                     title: Row(
                       children: [
@@ -59,9 +61,7 @@ class _TuInventarioScreenState extends State<TuInventario_Screen> {
                               child: Transform.translate(
                                 offset: Offset(0, 0),
                                 child: Text(
-                                  expansionFraction < 0.5
-                                      ? 'Inventario'
-                                      : 'Hola Name',
+                                  expansionFraction < 0.5 ? 'Inventario' : 'Hola Name',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: expansionFraction < 0.5 ? 24 : 26,
@@ -105,22 +105,15 @@ class _TuInventarioScreenState extends State<TuInventario_Screen> {
                 },
               ),
             ),
-
-            //Lista
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) => Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: padings_H,
-                    vertical: padings_V,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: padings_H, vertical: padings_V),
                   child: Column(
                     children: [
-                      //Este es el feedback. Creo que tendre que hacer uno por cada uno :,vvvv
                       const FBInventario(),
-                      //Despues son los titulos
                       Padding(
-                        key: _searchKey, // Asigna el GlobalKey al contenedor del título
+                        key: _searchKey,
                         padding: EdgeInsets.symmetric(vertical: padings_V),
                         child: Container(
                           height: pantalla.height * .08,
@@ -139,9 +132,7 @@ class _TuInventarioScreenState extends State<TuInventario_Screen> {
                                 ),
                               ),
                               OutlinedButton(
-                                //Cuando se toque que va hacer
                                 onPressed: () {},
-                                //Estilo
                                 style: OutlinedButton.styleFrom(
                                   foregroundColor: const Color.fromARGB(255, 0, 0, 0),
                                   side: BorderSide.none,
@@ -168,15 +159,21 @@ class _TuInventarioScreenState extends State<TuInventario_Screen> {
                           ),
                         ),
                       ),
-                      //y las cartas de los productos
-                      //TODO Checar como puedo generar los productos en dos filas en un montón de columnas
-                      //TODO O si no cambiar a solo una carta que se genere en columnas
                       SizedBox(
                         height: pantalla.height * .12,
                         width: pantalla.width,
-                        child: SearchBar(onTap: _scrollToSearchBar),
+                        child: Buscador(
+                          onTap: _scrollToSearchBar,
+                          onBusquedaChanged: (String value) {
+                            setState(() {
+                              busquedaInv = value;
+                            });
+                            //ahora lo que busqueda es el select *from y de ahi hago mis cartas
+                            //puta madreeeee
+                            print("Texto de búsqueda: $busquedaInv");
+                          },
+                        ),
                       ),
-                      // Generación de las cartas
                       Column(
                         children: List.generate(8, (index) {
                           return Text('Uno');
@@ -196,143 +193,4 @@ class _TuInventarioScreenState extends State<TuInventario_Screen> {
   }
 }
 
-//buscador
-class SearchBar extends StatefulWidget {
-  final VoidCallback onTap;
 
-  const SearchBar({Key? key, required this.onTap}) : super(key: key);
-
-  @override
-  State<SearchBar> createState() => _SearchBarState();
-}
-
-class _SearchBarState extends State<SearchBar> with SingleTickerProviderStateMixin {
-  bool _isActive = false;
-  final double padings_V = 25;
-  final FocusNode _focusNode = FocusNode();
-
-  final String busqueda = '';
-
-  @override
-  void dispose() {
-    _focusNode.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: padings_V),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              spreadRadius: 2,
-              blurRadius: 5,
-              offset: Offset(0, 3),
-            ),
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              spreadRadius: -5,
-              blurRadius: 8,
-              offset: Offset(-5, -5),
-            ),
-          ],
-        ),
-        child: TextButton(
-          onPressed: () {
-            widget.onTap();
-            setState(() {
-              _isActive = true;
-              _focusNode.requestFocus();
-            });
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              if (!_isActive)
-                Padding(
-                  padding: const EdgeInsets.only(left: 25),
-                  child: Text(
-                    "Busca un producto",
-                    style: Theme.of(context).appBarTheme.titleTextStyle,
-                  ),
-                ),
-              Expanded(
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 125),
-                    child: _isActive
-                        ? Container(
-                            alignment: Alignment.centerLeft,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 255, 255, 255),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Focus(
-                              onFocusChange: (hasFocus) {
-                                if (!hasFocus) {
-                                  setState(() {
-                                    _isActive = false;
-                                  });
-                                }
-                              },
-                              child: TextField(
-                                focusNode: _focusNode,
-                                onTap: () {
-                                  setState(() {
-                                    _isActive = true;
-                                  });
-                                },
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w200,
-                                ),
-                                enableSuggestions: false,
-                                onChanged: (value) => busqueda,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  focusedBorder: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  hintText: 'Busca algun producto',
-                                  focusColor: const Color.fromARGB(255, 0, 0, 0),
-                                  prefixIcon: const Icon(Icons.search),
-                                  suffixIcon: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        _isActive = false;
-                                      });
-                                      _focusNode.unfocus();
-                                    },
-                                    icon: const Icon(Icons.close),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
-                        : IconButton(
-                            onPressed: () {
-                              setState(() {
-                                widget.onTap();
-                                _isActive = true;
-                                _focusNode.requestFocus();
-                              });
-                            },
-                            icon: const Icon(Icons.search),
-                          ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}

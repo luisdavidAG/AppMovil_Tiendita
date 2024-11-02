@@ -3,7 +3,6 @@ import 'package:tiendita/screns/tuInventario_Screnn.dart';
 import 'package:tiendita/screns/tuListaSurtido_Screnn.dart';
 import 'package:tiendita/screns/tuProductos_Screen.dart';
 import 'package:tiendita/screns/tuPromociones__Screnn.dart';
-import 'package:tiendita/widgets/AppBar_Personalizado/APPBar.dart';
 import 'package:tiendita/widgets/TuInventario/Tu_Inventario.dart';
 import 'package:tiendita/widgets/TuListaSurtido/Tu_ListaSurtido.dart';
 import 'package:tiendita/widgets/TuProductos/CardAgrProd.dart';
@@ -34,7 +33,7 @@ class _home_screenState extends State<home_screen> {
       appBar: const PreferredSize(
         preferredSize:
             Size.fromHeight(150.0), // Ajusta la altura según tu diseño
-        child: AppBarr(),
+        child: Text('hola')
       ),
       body: SafeArea(
         child: ListView(
@@ -86,6 +85,10 @@ class _home_screenState extends State<home_screen> {
             SizedBox(height: 30),
 
             // Tus productos
+            //TODO Areglar los contenedores a eleccion del crud
+            //TODO Arreglar Tus Productos Screen
+            //TODO Arreglar cada una de las cartas
+            //
             Container(
               height: pantalla.height * .65, // Puedes ajustar esto
               width: pantalla.width,
@@ -196,7 +199,10 @@ class _home_screenState extends State<home_screen> {
 
             //Esta es Tus Promociones
             //TODO se ve a expandir alas prociones que haya
-            //TODO si hay 1 mostrar una SINO monstrar que no hay promociones aun
+            //TODO si hay 1 mostrar en medio y SINO monstrar que no hay promociones aun
+            //TODO Arreglar TUS Promociones Screen
+            //TODO Arreglar las cartas se acomoden ala Screen Y Solo mostrar 3 en este widget
+
             Container(
               height: pantalla.height * .65, // Puedes ajustar esto
               width: pantalla.width,
@@ -273,6 +279,8 @@ class _home_screenState extends State<home_screen> {
 
             //Lista de Surtido
             //Lo que manda llamar aqui es el widget personalizado de lo LISTA DE SURTIDO
+            //TODO Arreglar el widget que se vea bonito
+            //TODO Arreglar TU lista de surtido Screen
             Container(
               width: pantalla.width,
               height: pantalla.height * .40,
