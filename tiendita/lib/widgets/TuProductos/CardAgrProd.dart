@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 //Variable global
 late Size pantalla;
+late String crud;
 
-class TusProductos extends StatelessWidget {
-  const TusProductos({super.key});
+class AgrTusProductos extends StatefulWidget {
+  const AgrTusProductos({super.key});
 
+  @override
+  State<AgrTusProductos> createState() => _AgrTusProductosState();
+}
+
+class _AgrTusProductosState extends State<AgrTusProductos> {
   @override
   Widget build(BuildContext context) {
     pantalla = MediaQuery.of(context).size;
@@ -27,7 +33,7 @@ Widget productos(BuildContext context){
       //Contenido de la carta
       child: Column(
         children: [
-          Text('hola'),
+          Text('Agregar'),
         ],
       ),
 

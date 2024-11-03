@@ -20,6 +20,9 @@ class home_screen extends StatefulWidget {
 }
 
 class _home_screenState extends State<home_screen> {
+  final double padings_H = 15;
+  final double padings_V = 25;
+  final double contenido_PH = 25;
   final String usuario = '';
 
   @override
@@ -98,19 +101,53 @@ class _home_screenState extends State<home_screen> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 15.0),
+                    padding: EdgeInsets.symmetric(horizontal: padings_H),
                     child: Container(
                       height: pantalla.height * .08,
                       alignment: Alignment.centerLeft,
-                      child: const Text(
-                        'Tus Productos',
-                        style: TextStyle(
-                          decoration: TextDecoration.none,
-                          fontFamily: AutofillHints.creditCardSecurityCode,
-                          fontSize: 24,
-                          color: Color.fromARGB(255, 0, 0, 0),
-                          fontWeight: FontWeight.bold,
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                           Text(
+                            'Tus Productos',
+                            style: TextStyle(
+                              decoration: TextDecoration.none,
+                              fontFamily: AutofillHints.creditCardSecurityCode,
+                              fontSize: 24,
+                              color: Color.fromARGB(255, 0, 0, 0),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          OutlinedButton(
+                            onPressed: () {
+                              // Acción cuando se presiona el botón
+                              //Mandar ala Screen Tus Promociones
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const TuProductos_Screnn(initialCrud: 'Ver Inventario', scrollToForm: false,)),
+                              );
+                            },
+                            child: const Text('Ver mas'),
+                            style: OutlinedButton.styleFrom(
+                              foregroundColor:
+                                  const Color.fromARGB(255, 0, 0, 0),
+                              side: BorderSide.none, // Borde
+                              //pading interno
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              textStyle: const TextStyle(
+                                decoration: TextDecoration.none,
+                                fontFamily:
+                                    AutofillHints.creditCardSecurityCode,
+                                fontSize: 16,
+                                color: Color.fromARGB(255, 0, 0, 0),
+                                fontWeight: FontWeight.w200,
+                              ),
+                            ),
+                          )
+                        ],
                       ),
                     ),
                   ),
@@ -128,26 +165,24 @@ class _home_screenState extends State<home_screen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const TuProductos_Screnn()),
+                                        const TuProductos_Screnn(initialCrud: 'Agregar Productos',scrollToForm: true,)),
                               );
                             },
-                            child: const TusProductos(),
+                            child: const AgrTusProductos(),
                           )),
                       Container(
                           height: pantalla.height * .25,
                           width: pantalla.width * .50,
-                          decoration: BoxDecoration(
-                              color: Color.fromARGB(149, 16, 212, 32)),
                           child: TextButton(
                             onPressed: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const TuProductos_Screnn()),
+                                        const TuProductos_Screnn(initialCrud: 'Editar Productos',scrollToForm: true,)),
                               );
                             },
-                            child: const TusProductos(),
+                            child: const EditTusProductos(),
                           ))
                     ],
                   ),
@@ -169,26 +204,24 @@ class _home_screenState extends State<home_screen> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const TuProductos_Screnn()),
+                                          const TuProductos_Screnn( initialCrud:  'Ver Inventario', scrollToForm: true,)),
                                 );
                               },
-                              child: const TusProductos(),
+                              child: const ConsTusProductos(),
                             )),
                         Container(
                             height: pantalla.height * .25,
                             width: pantalla.width * .50,
-                            decoration: BoxDecoration(
-                                color: Color.fromARGB(149, 16, 212, 32)),
                             child: TextButton(
                               onPressed: () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const TuProductos_Screnn()),
+                                          const TuProductos_Screnn( initialCrud:   'Eliminar Productos', scrollToForm: true,)),
                                 );
                               },
-                              child: const TusProductos(),
+                              child: const ElimTusProductos(),
                             ))
                       ],
                     ),
@@ -219,7 +252,7 @@ class _home_screenState extends State<home_screen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text(
-                            'Tus Productos',
+                            'Tus Promociones',
                             style: TextStyle(
                               decoration: TextDecoration.none,
                               fontFamily: AutofillHints.creditCardSecurityCode,

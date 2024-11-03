@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 late Size pantalla;
 
 //trabajar como stalfull
-class EliminarProductos extends StatelessWidget {
-  const EliminarProductos({super.key});
+class ElimTusProductos extends StatefulWidget {
+  const ElimTusProductos({super.key});
 
+  @override
+  State<ElimTusProductos> createState() => _ElimTusProductosState();
+}
+
+class _ElimTusProductosState extends State<ElimTusProductos> {
   @override
   Widget build(BuildContext context) {
     pantalla = MediaQuery.of(context).size;
@@ -28,7 +33,7 @@ Widget productos(BuildContext context){
       //Contenido de la carta
       child: Column(
         children: [
-          Text('hola'),
+          Text('Eliminar'),
         ],
       ),
 
