@@ -204,7 +204,7 @@ class _home_screenState extends State<home_screen> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const TuProductos_Screnn( initialCrud:  'Ver Inventario', scrollToForm: true,)),
+                                         TuProductos_Screnn( initialCrud:  'Ver Inventario', scrollToForm: false,)),
                                 );
                               },
                               child: const ConsTusProductos(),

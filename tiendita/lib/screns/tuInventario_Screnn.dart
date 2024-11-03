@@ -21,15 +21,30 @@ class _TuInventarioScreenState extends State<TuInventario_Screen> {
 
   // Calcula la posición del `SearchBar` y hace scroll hasta allí
   void _scrollToSearchBar() {
-    final RenderBox renderBox = _searchKey.currentContext?.findRenderObject() as RenderBox;
-    final position = renderBox.localToGlobal(Offset.zero).dy + _scrollController.position.pixels;
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    final RenderBox? renderBox = _searchKey.currentContext?.findRenderObject() as RenderBox?;
+    if (renderBox != null) {
+      final position = renderBox.localToGlobal(Offset.zero).dy + _scrollController.position.pixels;
 
-    _scrollController.animateTo(
-      position - kToolbarHeight, // Ajuste para compensar la altura del AppBar
-      duration: Duration(milliseconds: 500),
-      curve: Curves.easeInOut,
-    );
-  }
+      _scrollController.animateTo(
+        position - kToolbarHeight, // Ajuste para compensar la altura del AppBar
+        duration: Duration(milliseconds: 800),
+        curve: Curves.easeInOut,
+      );
+    }
+  });
+}
+
+@override
+void initState() {
+  super.initState();
+  
+  // Esto asegura que el desplazamiento ocurra después de que el widget esté completamente montado
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    _scrollToSearchBar();
+  });
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +185,7 @@ class _TuInventarioScreenState extends State<TuInventario_Screen> {
                             });
                             //ahora lo que busqueda es el select *from y de ahi hago mis cartas
                             //puta madreeeee
-                            print("Texto de búsqueda: $busquedaInv");
+                            //print("Texto de búsqueda: $busquedaInv");
                           },
                         ),
                       ),
