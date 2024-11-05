@@ -10,7 +10,7 @@ class TuPromociones_Screen extends StatefulWidget {
 }
 
 class _TuPromociones_ScreenState extends State<TuPromociones_Screen> {
-  //padings
+  // Padding
   final double padings_H = 30;
   final double padings_V = 25;
 
@@ -19,21 +19,57 @@ class _TuPromociones_ScreenState extends State<TuPromociones_Screen> {
     Size pantalla = MediaQuery.of(context).size;
 
     return Scaffold(
-      //appBar:
-      //Cuerpo
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
-              leading: Icon(Icons.menu),
-              expandedHeight: pantalla.height * .20,
+              backgroundColor: const Color(0xFF5C5DE9),
+              expandedHeight: pantalla.height * 0.2,
               floating: false,
               pinned: true,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Container(
-                  color: Colors.deepPurpleAccent,
-                ),
-                title: Text('Hola Name'),
+              flexibleSpace: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  double expansionFraction = (constraints.maxHeight - kToolbarHeight) /
+                      (pantalla.height * 0.2 - kToolbarHeight);
+                  return FlexibleSpaceBar(
+                    background: Container(
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Color(0xFF5C5DE9), Color(0xFF8A6DE9)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                      ),
+                    ),
+                    title: Row(
+                      children: [
+                        const SizedBox(width: 40),
+                        TweenAnimationBuilder<double>(
+                          tween: Tween<double>(begin: 0.0, end: 1.0),
+                          duration: const Duration(milliseconds: 800),
+                          builder: (context, value, child) {
+                            return Opacity(
+                              opacity: value,
+                              child: Transform.translate(
+                                offset: Offset(0, 0),
+                                child: Text(
+                                  expansionFraction < 0.5 ? 'Promociones' : 'Hola Name',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: expansionFraction < 0.5 ? 24 : 26,
+                                    fontWeight: FontWeight.w900,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                    centerTitle: true,
+                    titlePadding: EdgeInsets.only(left: 8, bottom: 10),
+                  );
+                },
               ),
             ),
             SliverList(
@@ -44,81 +80,59 @@ class _TuPromociones_ScreenState extends State<TuPromociones_Screen> {
                     vertical: padings_V,
                   ),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      //Este es el feed back de promociones
-                      //Este es el Feedback Creo que tendre que hacer uno por cada uno :,vvvv
+                      // Feedback para promociones
                       const FBPromociones(),
-                      //Despues son los titulos
+
+                      // Título de la sección 'Tus Promociones'
                       Padding(
-                        padding: EdgeInsets.only(bottom: 10, top: 25),
+                        padding: EdgeInsets.only(top: padings_V),
                         child: Container(
                           height: pantalla.height * .08,
                           alignment: Alignment.centerLeft,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              // Título de la sección 'Tus Productos'
                               const Text(
                                 'Tus Promociones \nExistentes',
                                 style: TextStyle(
                                   decoration: TextDecoration.none,
-                                  fontFamily:
-                                      AutofillHints.creditCardSecurityCode,
+                                  fontFamily: AutofillHints.creditCardSecurityCode,
                                   fontSize: 24,
                                   color: Color.fromARGB(255, 0, 0, 0),
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              const SizedBox(height: 100),
-                              // Botón 'Más Vendidos'
                               OutlinedButton(
                                 onPressed: () {
                                   // Acción cuando se presiona el botón
-                                  // Mandar a la pantalla Tus Promociones
                                 },
                                 style: OutlinedButton.styleFrom(
-                                  foregroundColor:
-                                      const Color.fromARGB(255, 0, 0, 0),
-                                  side: BorderSide.none, // Sin borde
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 20,
-                                    vertical: 10,
-                                  ), // Padding interno
+                                  foregroundColor: const Color.fromARGB(255, 0, 0, 0),
+                                  side: BorderSide.none,
+                                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                                   textStyle: const TextStyle(
                                     decoration: TextDecoration.none,
-                                    fontFamily:
-                                        AutofillHints.creditCardSecurityCode,
+                                    fontFamily: AutofillHints.creditCardSecurityCode,
                                     fontSize: 16,
                                     fontWeight: FontWeight.w200,
-                                    color: Color.fromARGB(255, 0, 0, 0),
                                   ),
                                 ),
                                 child: const Row(
-                                  mainAxisSize: MainAxisSize
-                                      .min, // Ajusta el ancho al contenido
+                                  mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Text('Ver más'), // Texto del botón
-                                    // Espacio entre texto e ícono
-                                    Icon(
-                                      Icons
-                                          .arrow_drop_down, // Flecha hacia abajo
-                                      color: Color.fromARGB(
-                                          255, 0, 0, 0), // Color del ícono
-                                    ),
+                                    Text('Ver más'),
+                                    Icon(Icons.arrow_drop_down),
                                   ],
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
                       ),
-                      //y las cartas de las promociones
-                      //TODO Checar lo de generar las promociones
-                      /*  const Row(
-                        children: [
-                          Text('Aqui van las mugres promociones'),
-                        ],
-                      ),*/
+                      
+                      // Cartas de promociones
                       Column(
                         children: [
                           Carta_Promocion(),
@@ -130,7 +144,7 @@ class _TuPromociones_ScreenState extends State<TuPromociones_Screen> {
                     ],
                   ),
                 ),
-                childCount: 1, // Ajusta según el número de elementos
+                childCount: 1,
               ),
             ),
           ],
@@ -139,3 +153,4 @@ class _TuPromociones_ScreenState extends State<TuPromociones_Screen> {
     );
   }
 }
+
