@@ -1,23 +1,32 @@
 import 'package:flutter/material.dart';
 
 class FormAgrprod extends StatefulWidget {
-
-  final GlobalKey fomrKey;
-  const FormAgrprod({super.key, required this.fomrKey});
+  final GlobalKey formKey;
+  const FormAgrprod({super.key, required this.formKey});
 
   @override
   State<FormAgrprod> createState() => _FormAgrprodState();
 }
 
 class _FormAgrprodState extends State<FormAgrprod> {
+  final _nameController = TextEditingController();
+  final _quantityController = TextEditingController();
+  final _categoryController = TextEditingController();
+  final _etcController = TextEditingController();
 
   @override
-  
-  Widget build(BuildContext context) {
+  void dispose() {
+    _nameController.dispose();
+    _quantityController.dispose();
+    _categoryController.dispose();
+    _etcController.dispose();
+    super.dispose();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      key: widget.fomrKey,
-      //backgroundColor: Colors.black87,
+      key: widget.formKey,
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey),
         borderRadius: BorderRadius.circular(20),
@@ -33,47 +42,52 @@ class _FormAgrprodState extends State<FormAgrprod> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Title
               const Text(
                 "Agrega Productos a \nTu Inventario",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,color: Colors.white),
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
               const SizedBox(height: 8),
               const Text(
                 "Tus Clientes Necesitan Nuevos Productos !",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white60),
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white60),
               ),
               const SizedBox(height: 8),
               const Text(
                 "Agrega nuevos productos para que siempre estén disponibles en tu inventario. Completa los campos necesarios y selecciona 'Guardar' para añadirlos.",
-                style: TextStyle( fontSize: 14, color: Colors.white60),
+                style: TextStyle(fontSize: 14, color: Colors.white60),
               ),
               const SizedBox(height: 20),
-
-              // Text Fields
-              _buildTextField(context, "Nombre"),
+              _buildTextField(context, "Nombre", _nameController),
               const SizedBox(height: 15),
-              _buildTextField(context, "Cantidad"),
+              _buildTextField(context, "Cantidad", _quantityController),
               const SizedBox(height: 15),
-              _buildTextField(context, "Categoria"),
+              _buildTextField(context, "Categoria", _categoryController),
               const SizedBox(height: 15),
-              _buildTextField(context, "Etc"),
+              _buildTextField(context, "Etc", _etcController),
               const SizedBox(height: 30),
-
-              // Buttons
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.grey[700],
-                      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
                     onPressed: () {
-                      //Borra los valores del los textield
+                      _nameController.clear();
+                      _quantityController.clear();
+                      _categoryController.clear();
+                      _etcController.clear();
                     },
                     child: const Text(
                       "Cancelar",
@@ -83,16 +97,17 @@ class _FormAgrprodState extends State<FormAgrprod> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
-                      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
-                    //Aqui se hace todo ese pero de verificar el formulari
-                    //Insert into Values //
-                    onPressed: () {},
+                    onPressed: () {
+                      // Verificar el formulario aquí y hacer el insert en la base de datos
+                    },
                     child: const Text(
-                      "Gurdar",
+                      "Guardar",
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -104,11 +119,12 @@ class _FormAgrprodState extends State<FormAgrprod> {
       ),
     );
   }
-  
-  Widget _buildTextField(BuildContext context, String hintText,) {
 
+  Widget _buildTextField(BuildContext context, String hintText,
+      TextEditingController controller) {
     return TextField(
-      style: TextStyle(
+      controller: controller,
+      style: const TextStyle(
         color: Colors.white70,
         fontSize: 16,
       ),
@@ -116,20 +132,18 @@ class _FormAgrprodState extends State<FormAgrprod> {
         filled: true,
         fillColor: Colors.grey[800],
         hintText: hintText,
-        hintStyle: TextStyle( color: Colors.white60),
+        hintStyle: const TextStyle(color: Colors.white60),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(color: Colors.transparent),
-        ),
-        enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
           borderSide: BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(color: const Color.fromARGB(255, 255, 255, 255)),
+          borderSide:
+              const BorderSide(color: Color.fromARGB(255, 255, 255, 255)),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
       ),
     );
   }
