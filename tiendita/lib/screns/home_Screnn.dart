@@ -349,7 +349,7 @@ class _home_screenState extends State<home_screen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        TuListaSurtido_Screen()),
+                                      TuListaSurtidoScreen()),
                               );
                             },
                             child: Text('Ver mas'),
@@ -380,7 +380,7 @@ class _home_screenState extends State<home_screen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => TuListaSurtido_Screen()),
+                            builder: (context) => TuInventario_Screen()),
                       );
                     },
                     child: const TuListaSurtido(),

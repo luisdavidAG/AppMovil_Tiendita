@@ -12,6 +12,42 @@ class Carta_Promocion extends StatefulWidget {
 class _Carta_PromocionState extends State<Carta_Promocion> {
   final double padings_H = 30;
   final double padings_V = 25;
+  late String formattedDate;
+
+  @override
+  void initState() {
+    super.initState();
+    DateTime now = DateTime.now();
+    List<String> days = [
+      "Domingo",
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado"
+    ];
+    List<String> months = [
+      "enero",
+      "febrero",
+      "marzo",
+      "abril",
+      "mayo",
+      "junio",
+      "julio",
+      "agosto",
+      "septiembre",
+      "octubre",
+      "noviembre",
+      "diciembre"
+    ];
+
+    String dayOfWeek = days[now.weekday % 7];
+    String day = now.day.toString().padLeft(2, '0');
+    String month = months[now.month - 1];
+    String year = now.year.toString();
+    formattedDate = "$dayOfWeek, $day de $month $year";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,79 +56,181 @@ class _Carta_PromocionState extends State<Carta_Promocion> {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: padings_V),
       child: Container(
-        height: pantalla.height * .25, // Ajusta la altura del contenedor
         width: pantalla.width,
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 58, 248, 0),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(30),
+          gradient: RadialGradient(
+            colors: [
+              Color(0xFF1A1A1A),
+              Color(0xFF000000).withOpacity(0.7),
+            ],
+            radius: 1.5,
+            center: Alignment.center,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 10,
+              blurRadius: 8,
+              offset: Offset(2, 4),
+            ),
+          ],
         ),
         child: Row(
           children: [
-            // Para la foto
+            // Contenedor para la imagen de promoción
+            // TODO Arreglar el borde redondeado al imagen
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 10), // Reducir el padding vertical
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
               child: Container(
-                margin: EdgeInsets.only(left: 20, right: 5),
-                width: pantalla.width * .35, // Reducir un poco el ancho de la imagen
-                height: pantalla.height * .20, // Ajustar la altura de la imagen
+                width: pantalla.width * .3,
+                height: pantalla.height * .2,
                 decoration: BoxDecoration(
                   color: Colors.grey,
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(16),
                 ),
               ),
             ),
-            // Para el texto
+            // Contenedor para el texto
             Expanded(
               child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 10,horizontal:4), // Reducir el padding vertical
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
+                    // Fecha de la promoción
+                    Text(
+                      formattedDate,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.white70,
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    // Título de la promoción
                     const Text(
                       'Promoción 1',
                       style: TextStyle(
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                        color: Colors.white,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10.0, right: 2.0),
-                      child: Text(
-                        'Descripción de lo que es eyto knvnkovsdknvskvkslnevkklnsevknlsevknlelknsve vensevlknsevnlkesknlekn mevsnklsvknlvse',
-                        maxLines: 3, // Limita a 3 líneas de texto
-                        overflow: TextOverflow.ellipsis, // Añade puntos suspensivos si es muy largo
-                        style: TextStyle(fontSize: 14),
-                      ),
+                    const SizedBox(height: 10),
+                    // Descripción de la promoción
+                    Text(
+                      'Descripción de la promoción, explicando en qué consiste y los productos que incluye. Esta sección está limitada a algunas líneas.',
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 14, color: Colors.white70),
                     ),
-                    const SizedBox(height: 5), // Añade espacio entre la descripción y los botones
-                    // Contenedor para los botones
+                    const SizedBox(height: 15),
+                    
+                    // Botones en la parte inferior
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
+                      padding: const EdgeInsets.only(bottom: 10),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          // Botón "No"
                           Container(
-                            // Botón "No"
-                            height: 30,
-                            width: pantalla.width * .12,
-                            decoration: BoxDecoration(
-                              color: Colors.deepPurpleAccent,
-                              borderRadius: BorderRadius.circular(10), // Añade borde redondeado
+                            height: pantalla.height*.05,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                // Acción para el botón "No"
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.black, // Fondo negro
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  side: BorderSide(
+                                      color: Color.fromARGB(120, 244, 67, 54).withOpacity(0.8),
+                                      width: 2), // Borde rojo
+                                ),
+                                padding: EdgeInsets
+                                    .zero, // Sin padding para el gradiente
+                              ),
+                              child: Ink(
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xFFF44336).withOpacity(
+                                          0.2), // Rojo claro con opacidad
+                                      Colors
+                                          .transparent, // Transparente para un efecto de degradado sutil
+                                    ],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 12,
+                                      horizontal: 20), // Padding del contenido
+                                  child: const Text(
+                                    'No',
+                                    style: TextStyle(
+                                        color: Color(0xFFF44336)), // Texto rojo
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
-                          Container(
-                            // Botón "Sí"
-                            height: 30,
-                            width: pantalla.width * .22,
-                            decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 116, 95, 175),
-                              borderRadius: BorderRadius.circular(10), // Añade borde redondeado
+                          
+                          
+                          // Botón "Sí"
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20.0),
+                            child: Container(
+                              height: pantalla.height * .05,
+                              width: pantalla.width*.20,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  // Acción del botón
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.black, // Fondo negro
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    side: BorderSide(
+                                        color: Color(0xFF4CAF50),
+                                        width: 2), // Borde verde
+                                  ),
+                                  padding: EdgeInsets
+                                      .zero, // Sin padding para el gradiente
+                                ),
+                                child: Ink(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Color(0xFF4CAF50).withOpacity(
+                                            0.2), // Verde claro con opacidad
+                                        Colors
+                                            .transparent, // Transparente para un efecto de degradado sutil
+                                      ],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Container(
+                                    alignment: Alignment.center,// Padding del contenido
+                                    child: Text(
+                                      'Aceptar',
+                                      style: TextStyle(
+                                          color: Color(0xFF4CAF50)), // Texto verde
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
+                          )
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
