@@ -23,17 +23,24 @@ class _TuListaSurtidoScreenState extends State<TuListaSurtidoScreen> {
           slivers: [
             // SliverAppBar con gradiente y animación de título
             SliverAppBar(
-              backgroundColor: Colors.deepPurpleAccent,
+              backgroundColor: const Color(0xFF5C5DE9),
               expandedHeight: pantalla.height * 0.2,
               floating: false,
               pinned: true,
               flexibleSpace: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
-                  double expansionFraction = (constraints.maxHeight - kToolbarHeight) /
-                      (pantalla.height * 0.2 - kToolbarHeight);
+                  double expansionFraction =
+                      (constraints.maxHeight - kToolbarHeight) /
+                          (pantalla.height * 0.2 - kToolbarHeight);
                   return FlexibleSpaceBar(
                     background: Container(
-                      color: Colors.deepPurpleAccent,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Color(0xFF5C5DE9), Color(0xFF8A6DE9)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                      ),
                     ),
                     title: Row(
                       children: [
@@ -47,7 +54,9 @@ class _TuListaSurtidoScreenState extends State<TuListaSurtidoScreen> {
                               child: Transform.translate(
                                 offset: Offset(0, 0),
                                 child: Text(
-                                  expansionFraction < 0.5 ? 'Lista de Surtido' : 'Hola Name',
+                                  expansionFraction < 0.5
+                                      ? 'Lista de Surtido'
+                                      : 'Hola Name',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: expansionFraction < 0.5 ? 24 : 26,
@@ -61,7 +70,7 @@ class _TuListaSurtidoScreenState extends State<TuListaSurtidoScreen> {
                       ],
                     ),
                     centerTitle: true,
-                    titlePadding: EdgeInsets.only(left: 8, bottom: 10),
+                    titlePadding: const EdgeInsets.only(left: 8, bottom: 10),
                   );
                 },
               ),
@@ -103,9 +112,11 @@ class _TuListaSurtidoScreenState extends State<TuListaSurtidoScreen> {
                                   // Acción para el botón "Ver más"
                                 },
                                 style: OutlinedButton.styleFrom(
-                                  foregroundColor: const Color.fromARGB(255, 0, 0, 0),
+                                  foregroundColor:
+                                      const Color.fromARGB(255, 0, 0, 0),
                                   side: BorderSide.none,
-                                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
                                   textStyle: const TextStyle(
                                     decoration: TextDecoration.none,
                                     fontSize: 16,
@@ -125,7 +136,7 @@ class _TuListaSurtidoScreenState extends State<TuListaSurtidoScreen> {
                         ),
                       ),
 
-                      // Contenedor para mostrar la lista de surtido
+                      // Contenedor para mostrar la tabla de surtido
                       Container(
                         height: pantalla.height * .6,
                         width: pantalla.width,
@@ -133,7 +144,9 @@ class _TuListaSurtidoScreenState extends State<TuListaSurtidoScreen> {
                           color: Colors.grey.shade200,
                           borderRadius: BorderRadius.circular(20.0),
                         ),
-                        child: listaSurtido(), // Widget que muestra los elementos del surtido
+                        padding: const EdgeInsets.all(10),
+                        child:
+                            listaSurtidoTable(), // Widget que muestra los elementos del surtido en tabla
                       ),
                     ],
                   ),
@@ -152,7 +165,7 @@ class _TuListaSurtidoScreenState extends State<TuListaSurtidoScreen> {
         child: Icon(
           Icons.picture_as_pdf_rounded,
           color: Colors.lightGreen.shade900,
-        ), // Ícono dentro del botón
+        ),
         tooltip: 'Añadir',
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -160,35 +173,79 @@ class _TuListaSurtidoScreenState extends State<TuListaSurtidoScreen> {
   }
 }
 
-// ListView para mostrar filas de productos
-Widget listaSurtido() {
-  return ListView.builder(
-    itemCount: 5, // Número de productos en la lista (ajustar según sea necesario)
-    itemBuilder: (context, index) {
-      return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-        padding: const EdgeInsets.all(12),
+// Tabla para mostrar filas de productos
+Widget listaSurtidoTable() {
+  return Table(
+    columnWidths: const {
+      0: FlexColumnWidth(2), // Columna de Producto
+      1: FlexColumnWidth(2), // Columna de Categoría
+      2: FlexColumnWidth(1), // Columna de Existentes
+    },
+    border: TableBorder.all(color: Colors.grey, width: 1),
+    children: [
+      // Encabezado de la tabla
+      TableRow(
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
-              spreadRadius: 3,
-              blurRadius: 5,
-              offset: Offset(0, 3),
+          color: Colors.grey.shade300,
+        ),
+        children: const [
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              'Producto',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              'Categoría',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              'Existentes',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      ),
+      // Filas de la tabla
+      ...List.generate(5, (index) {
+        return TableRow(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Producto ${index + 1}',
+                style: const TextStyle(fontSize: 14),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Categoría ${index + 1}',
+                style: const TextStyle(fontSize: 14),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                '${10 - index}', // Cantidad existente, ejemplo
+                style: const TextStyle(fontSize: 14),
+                textAlign: TextAlign.center,
+              ),
             ),
           ],
-        ),
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('Producto', style: TextStyle(fontSize: 15)),
-            Text('Categoria', style: TextStyle(fontSize: 15)),
-            Text('Existentes', style: TextStyle(fontSize: 15)),
-          ],
-        ),
-      );
-    },
+        );
+      }),
+    ],
   );
 }

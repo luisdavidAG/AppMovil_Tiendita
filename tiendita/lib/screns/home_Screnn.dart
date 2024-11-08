@@ -34,10 +34,9 @@ class _home_screenState extends State<home_screen> {
       //meter un color de fondo que se vea solido pero agradable ala vista
 
       appBar: const PreferredSize(
-        preferredSize:
-            Size.fromHeight(150.0), // Ajusta la altura según tu diseño
-        child: Text('hola')
-      ),
+          preferredSize:
+              Size.fromHeight(150.0), // Ajusta la altura según tu diseño
+          child: Text('hola')),
       body: SafeArea(
         child: ListView(
           children: [
@@ -108,7 +107,7 @@ class _home_screenState extends State<home_screen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                           Text(
+                          Text(
                             'Tus Productos',
                             style: TextStyle(
                               decoration: TextDecoration.none,
@@ -126,7 +125,10 @@ class _home_screenState extends State<home_screen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const TuProductos_Screnn(initialCrud: 'Ver Inventario', scrollToForm: false,)),
+                                        const TuProductos_Screnn(
+                                          initialCrud: 'Ver Inventario',
+                                          scrollToForm: false,
+                                        )),
                               );
                             },
                             child: const Text('Ver mas'),
@@ -165,7 +167,10 @@ class _home_screenState extends State<home_screen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const TuProductos_Screnn(initialCrud: 'Agregar Productos',scrollToForm: true,)),
+                                        const TuProductos_Screnn(
+                                          initialCrud: 'Agregar Productos',
+                                          scrollToForm: true,
+                                        )),
                               );
                             },
                             child: const AgrTusProductos(),
@@ -179,7 +184,10 @@ class _home_screenState extends State<home_screen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const TuProductos_Screnn(initialCrud: 'Editar Productos',scrollToForm: true,)),
+                                        const TuProductos_Screnn(
+                                          initialCrud: 'Editar Productos',
+                                          scrollToForm: true,
+                                        )),
                               );
                             },
                             child: const EditTusProductos(),
@@ -203,8 +211,8 @@ class _home_screenState extends State<home_screen> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                  builder: (context) =>
-                                      const TuInventario_Screen()),
+                                      builder: (context) =>
+                                          const TuInventario_Screen()),
                                 );
                               },
                               child: const ConsTusProductos(),
@@ -218,7 +226,10 @@ class _home_screenState extends State<home_screen> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const TuProductos_Screnn( initialCrud:   'Eliminar Productos', scrollToForm: true,)),
+                                          const TuProductos_Screnn(
+                                            initialCrud: 'Eliminar Productos',
+                                            scrollToForm: true,
+                                          )),
                                 );
                               },
                               child: const ElimTusProductos(),
@@ -349,7 +360,7 @@ class _home_screenState extends State<home_screen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                      TuListaSurtidoScreen()),
+                                        TuListaSurtidoScreen()),
                               );
                             },
                             child: Text('Ver mas'),
@@ -380,7 +391,7 @@ class _home_screenState extends State<home_screen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => TuInventario_Screen()),
+                            builder: (context) => TuListaSurtidoScreen()),
                       );
                     },
                     child: const TuListaSurtido(),

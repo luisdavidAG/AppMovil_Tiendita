@@ -29,8 +29,9 @@ class _TuPromociones_ScreenState extends State<TuPromociones_Screen> {
               pinned: true,
               flexibleSpace: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
-                  double expansionFraction = (constraints.maxHeight - kToolbarHeight) /
-                      (pantalla.height * 0.2 - kToolbarHeight);
+                  double expansionFraction =
+                      (constraints.maxHeight - kToolbarHeight) /
+                          (pantalla.height * 0.2 - kToolbarHeight);
                   return FlexibleSpaceBar(
                     background: Container(
                       decoration: const BoxDecoration(
@@ -53,7 +54,9 @@ class _TuPromociones_ScreenState extends State<TuPromociones_Screen> {
                               child: Transform.translate(
                                 offset: Offset(0, 0),
                                 child: Text(
-                                  expansionFraction < 0.5 ? 'Promociones' : 'Hola Name',
+                                  expansionFraction < 0.5
+                                      ? 'Promociones'
+                                      : 'Hola Name',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: expansionFraction < 0.5 ? 24 : 26,
@@ -98,7 +101,8 @@ class _TuPromociones_ScreenState extends State<TuPromociones_Screen> {
                                 'Tus Promociones \nExistentes',
                                 style: TextStyle(
                                   decoration: TextDecoration.none,
-                                  fontFamily: AutofillHints.creditCardSecurityCode,
+                                  fontFamily:
+                                      AutofillHints.creditCardSecurityCode,
                                   fontSize: 24,
                                   color: Color.fromARGB(255, 0, 0, 0),
                                   fontWeight: FontWeight.bold,
@@ -109,12 +113,15 @@ class _TuPromociones_ScreenState extends State<TuPromociones_Screen> {
                                   // Acción cuando se presiona el botón
                                 },
                                 style: OutlinedButton.styleFrom(
-                                  foregroundColor: const Color.fromARGB(255, 0, 0, 0),
+                                  foregroundColor:
+                                      const Color.fromARGB(255, 0, 0, 0),
                                   side: BorderSide.none,
-                                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
                                   textStyle: const TextStyle(
                                     decoration: TextDecoration.none,
-                                    fontFamily: AutofillHints.creditCardSecurityCode,
+                                    fontFamily:
+                                        AutofillHints.creditCardSecurityCode,
                                     fontSize: 16,
                                     fontWeight: FontWeight.w200,
                                   ),
@@ -131,13 +138,10 @@ class _TuPromociones_ScreenState extends State<TuPromociones_Screen> {
                           ),
                         ),
                       ),
-                      
+
                       // Cartas de promociones
                       Column(
                         children: [
-                          Carta_Promocion(),
-                          Carta_Promocion(),
-                          Carta_Promocion(),
                           Carta_Promocion(),
                         ],
                       ),
@@ -153,4 +157,3 @@ class _TuPromociones_ScreenState extends State<TuPromociones_Screen> {
     );
   }
 }
-
