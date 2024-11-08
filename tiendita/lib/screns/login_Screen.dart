@@ -4,6 +4,18 @@ import 'package:tiendita/screns/home_Screnn.dart';
 
 class loginScrenn extends StatelessWidget {
   const loginScrenn({super.key});
+  //TODO GENERALES
+
+  //todo Meter la tipografia que dijimos
+  //todo meter los colores a esta screen
+  //todo meter animaciones
+  //todo meter un splash
+  //TODO REGUISTRARSE
+  //todo Meter Form para Crear usuarios(dueños)
+  //todo Meter Form para reguistrar tu tienda
+  //Todo Meter FScreen para meter a tus empleados
+
+  //TODO Recuperar contraseña pedirsela a aron
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +30,7 @@ class loginScrenn extends StatelessWidget {
           decoration: const BoxDecoration(
               //se pude meter una decoracion aqui para poder hacer que se mueva
               //lo de atras
+
               //Todo Buscar una forma de mover el degradado Todo el Tiempo jajj
               gradient: LinearGradient(colors: [
             Color.fromARGB(255, 255, 0, 0),

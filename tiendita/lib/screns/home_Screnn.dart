@@ -14,7 +14,21 @@ import 'package:tiendita/widgets/TuPromociones/Tu_Promociones.dart';
 
 class home_screen extends StatefulWidget {
   const home_screen({super.key});
+    //TODO GENERALES
+    //todo AGregar una carta arriba de productos para que pueda saber que onda
+    //todo Cuando se suba el contenedor que se desaparesca con un difuminado
+    //todo Cambiar el ver mas por una flechita
+    //todo Animacion de la navegacion cammbiar
+  
+    //todo separar las secciones ver cosas en pinterest
 
+    //todo arreglar todos las castas de las secciones ideas de pinteres
+    //todo acoplar la tipografia
+
+    //todo aplicar el diseño general alos apartados y demas
+    //todo areglar el famoso appbaner
+
+    //todo parar el ususario o dueño entre pantallas
   @override
   State<home_screen> createState() => _home_screenState();
 }
